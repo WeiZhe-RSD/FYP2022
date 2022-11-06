@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".User_Cafeteria"
     android:background="@drawable/cafeteria"
-    android:alpha="0.7">
+    >
 
     <TextView
         android:id="@+id/textView2"

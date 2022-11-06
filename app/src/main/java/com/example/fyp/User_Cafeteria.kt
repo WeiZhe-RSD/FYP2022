@@ -32,7 +32,7 @@ class User_Cafeteria : AppCompatActivity() {
 
         cafeteriaAdapter.onItemClick = {
             val intent = Intent(this, User_Foodstall::class.java)
-            intent.putExtra("event", it)
+            intent.putExtra("cafeteria", it)
             startActivity(intent)
         }
     }
