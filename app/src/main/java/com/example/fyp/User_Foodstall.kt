@@ -56,8 +56,8 @@ class User_Foodstall : AppCompatActivity() {
             setDataInList()
 
             foodstallAdapter.onItemClick = {
-                val intent = Intent(this, User_Foodstall::class.java)
-                intent.putExtra("cafeteria", it)
+                val intent = Intent(this, User_Menu::class.java)
+                intent.putExtra("foodstall", it)
                 startActivity(intent)
             }
 
