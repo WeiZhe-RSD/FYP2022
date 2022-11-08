@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="30dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="8dp">
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="386dp"
@@ -36,42 +35,37 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvCafeteriaName"
+                    android:id="@+id/tvItemName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="22dp"
-                    android:translationZ="90dp" />
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btnMap"
+                        android:id="@+id/btnDelete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
-                        android:text="Map" />
+                        android:backgroundTint="#E60A0A"
+                        android:text="Delete" />
 
                     <Button
-                        android:id="@+id/btnSelect"
+                        android:id="@+id/btnEdit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="#FF9800"
-                        android:text="select" />
+                        android:text="Edit" />
 
                 </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
-
-
     </LinearLayout>
-
-
 </androidx.cardview.widget.CardView>
