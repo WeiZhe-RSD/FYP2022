@@ -19,7 +19,7 @@ class User_Cafeteria : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_cafeteria)
 
-        recyclerView = findViewById(R.id.rvShop)
+        recyclerView = findViewById(R.id.rvCafeteria)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
         cafeteriaArrayList = arrayListOf()
