@@ -28,7 +28,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvShop"
                 android:layout_width="match_parent"
-                android:layout_height="542dp"
+                android:layout_height="530dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="18dp">
@@ -37,10 +37,10 @@
 
             <Button
                 android:id="@+id/btnAdd"
-                android:layout_width="318dp"
-                android:layout_height="37dp"
+                android:layout_width="290dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="47dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="0dp"
                 android:layout_marginEnd="47dp"
                 android:backgroundTint="#FF9800"
                 android:text="+ Add" />
