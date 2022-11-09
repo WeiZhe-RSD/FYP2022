@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fyp.Entity.FoodStall
@@ -20,6 +21,8 @@ class Seller_ManageMenuItems : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seller_manage_menu_items)
 
+        val btnAdd = findViewById<Button>(R.id.btnAdd)
+
         recyclerView = findViewById(R.id.rvMenuItems)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
@@ -31,11 +34,16 @@ class Seller_ManageMenuItems : AppCompatActivity() {
 
         setDataInList()
 
-        /*foodstallAdapter.onItemClick = {
-            val intent = Intent(this, User_Foodstall::class.java)
-            intent.putExtra("foodstall", it)
+        /*MenuItemAdapter.onItemClick = {
+            val intent = Intent(this, Seller_AddItems::class.java)
+            intent.putExtra("food", it)
             startActivity(intent)
         }*/
+
+        btnAdd.setOnClickListener() {
+            val intent = Intent(this@Seller_ManageMenuItems, Seller_AddItems::class.java)
+            startActivity(intent)
+        }
 
     }
 
