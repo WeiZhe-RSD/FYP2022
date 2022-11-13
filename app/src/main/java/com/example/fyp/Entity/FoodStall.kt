@@ -5,7 +5,8 @@ import android.os.Parcelable
 
 data class FoodStall(
     var name:String?= null,
-
+    var opening:String? = null,
+    var closing:String? = null,
 
     var location:String?= null,
     var image:String?= null,
@@ -14,8 +15,15 @@ data class FoodStall(
     var cafeteriaID: String?=null,
     var sellerID: String?=null,
 
+    var operatingDay: String? = null,
+    var operatingHR: String? = null,
+
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -27,11 +35,15 @@ data class FoodStall(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
+        parcel.writeString(opening)
+        parcel.writeString(closing)
         parcel.writeString(location)
         parcel.writeString(image)
         parcel.writeString(status)
         parcel.writeString(cafeteriaID)
         parcel.writeString(sellerID)
+        parcel.writeString(operatingDay)
+        parcel.writeString(operatingHR)
     }
 
     override fun describeContents(): Int {

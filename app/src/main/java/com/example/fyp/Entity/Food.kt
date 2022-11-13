@@ -12,7 +12,7 @@ data class Food(
     var type:String?= null,
 
     var image:String?= null,
-    var calorie:Double?= null,
+    var calorie:Int?= null,
 
     var status: String?= null,
     var foodstallID: String?= null,
@@ -24,7 +24,7 @@ data class Food(
         parcel.readDouble(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readDouble(),
+        parcel.readInt(),
         parcel.readString(),
         parcel.readString()
     ) {

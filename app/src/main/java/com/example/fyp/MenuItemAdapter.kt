@@ -8,12 +8,12 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fyp.Entity.FoodStall
+import com.example.fyp.Entity.Food
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 
-class MenuItemAdapter (private val foodstallList: ArrayList<FoodStall>) : RecyclerView.Adapter<MenuItemAdapter.MenuItemViewHolder>(){
-    var onItemClick : ((FoodStall) -> Unit)? = null
+class MenuItemAdapter (private val foodList: ArrayList<Food>) : RecyclerView.Adapter<MenuItemAdapter.MenuItemViewHolder>(){
+    var onItemClick : ((Food) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuItemViewHolder {
         val itemHolder = LayoutInflater.from(parent.context).inflate(R.layout.layout_menuitems, parent, false)
@@ -21,14 +21,14 @@ class MenuItemAdapter (private val foodstallList: ArrayList<FoodStall>) : Recycl
     }
 
     override fun getItemCount(): Int {
-        return foodstallList.size
+        return foodList.size
     }
 
     override fun onBindViewHolder(holder: MenuItemViewHolder, position: Int) {
-        var foodstall: FoodStall = foodstallList[position]
+        val food: Food = foodList[position]
 
-        var imgName = foodstall.image.toString()
-        val storageRef = FirebaseStorage.getInstance().reference.child("foodstallimg/$imgName")
+        val imgName = food.image.toString()
+        val storageRef = FirebaseStorage.getInstance().reference.child("foodimg/$imgName")
         val localfile = File.createTempFile("tempImage", "png")
 
         storageRef.getFile(localfile).addOnSuccessListener {
@@ -37,10 +37,10 @@ class MenuItemAdapter (private val foodstallList: ArrayList<FoodStall>) : Recycl
             holder.imgItem.setImageBitmap(bitmap)
         }
 
-        holder.tvItemName.text = foodstall.name
+        holder.tvItemName.text = food.name
 
         holder.itemView.findViewById<Button>(R.id.btnEdit).setOnClickListener {
-            onItemClick?.invoke(foodstall)
+            onItemClick?.invoke(food)
         }
 
     }

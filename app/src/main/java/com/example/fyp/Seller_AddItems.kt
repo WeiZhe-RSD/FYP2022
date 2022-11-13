@@ -45,7 +45,7 @@ class Seller_AddItems : AppCompatActivity() {
             }else if(imgAddNewItem.drawable == null){
                 Toast.makeText(applicationContext,"Please insert images for the item", Toast.LENGTH_SHORT).show()
             }else{
-                val imgName = ref.child("foodImg/$imgAddNewItem.png")
+                val imgName = ref.child("foodimg/$imgAddNewItem.png")
                 imgName.putFile(imgUri)
                 val db = FirebaseFirestore.getInstance()
                 val food = hashMapOf(
@@ -60,9 +60,10 @@ class Seller_AddItems : AppCompatActivity() {
                 db.collection("food")
                     .document(tvNewItemName.text.toString()).set(food)
                     .addOnSuccessListener { Toast.makeText(this,"Added Successfully", Toast.LENGTH_SHORT).show()
-                        finish()
                     }
-                    .addOnFailureListener {Toast.makeText(this,"Added Failed", Toast.LENGTH_SHORT).show()}
+                    .addOnFailureListener {Toast.makeText(this,"Added Failed", Toast.LENGTH_SHORT).show()
+                    }
+                finish()
             }
         }
 

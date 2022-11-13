@@ -1,5 +1,6 @@
 package com.example.fyp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,13 +8,12 @@ import android.util.Log
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fyp.Entity.FoodStall
-import com.google.firebase.auth.FirebaseAuth
+import com.example.fyp.Entity.Food
 import com.google.firebase.firestore.*
 
 class Seller_ManageMenuItems : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var MenuItemArrayList: ArrayList<FoodStall>
+    private lateinit var MenuItemArrayList: ArrayList<Food>
     private lateinit var MenuItemAdapter: MenuItemAdapter
     private lateinit var db : FirebaseFirestore
 
@@ -48,12 +48,10 @@ class Seller_ManageMenuItems : AppCompatActivity() {
     }
 
     private fun setDataInList(){
-
-
-
         db = FirebaseFirestore.getInstance()
-        db.collection("foodstall").addSnapshotListener(object : EventListener<QuerySnapshot> {
+        db.collection("food").addSnapshotListener(object : EventListener<QuerySnapshot> {
 
+            @SuppressLint("NotifyDataSetChanged")
             override fun onEvent(
                 value: QuerySnapshot?,
                 error: FirebaseFirestoreException?
@@ -67,8 +65,8 @@ class Seller_ManageMenuItems : AppCompatActivity() {
                 for(dc : DocumentChange in value?.documentChanges!!){
 
                     if(dc.type == DocumentChange.Type.ADDED){
-                        MenuItemArrayList.add((dc.document.toObject(FoodStall::class.java)))
-                        if(MenuItemArrayList.get(MenuItemArrayList.size - 1).status == "Inactive"){
+                        MenuItemArrayList.add((dc.document.toObject(Food::class.java)))
+                        if(MenuItemArrayList[MenuItemArrayList.size - 1].status == "Inactive"){
                             MenuItemArrayList.removeAt(MenuItemArrayList.size - 1)
                         }
                     }

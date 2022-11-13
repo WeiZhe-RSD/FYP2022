@@ -12,7 +12,12 @@ class Seller_ShopManager : AppCompatActivity() {
         setContentView(R.layout.activity_seller_shop_manager)
 
         val btnManageFoodItems = findViewById<Button>(R.id.btnManageFI)
-        val btnManageOperationHours = findViewById<Button>(R.id.btnManageOH)
+        val btnManageFoodStall = findViewById<Button>(R.id.btnManageOH)
+
+        btnManageFoodStall.setOnClickListener(){
+            val intent = Intent(this@Seller_ShopManager, Seller_ManageFoodStall::class.java)
+            startActivity(intent)
+        }
 
         btnManageFoodItems.setOnClickListener(){
             val intent = Intent(this@Seller_ShopManager, Seller_ManageMenuItems::class.java)
