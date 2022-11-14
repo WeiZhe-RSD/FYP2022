@@ -41,7 +41,7 @@ class FoodAdapter (private val foodList: ArrayList<Food>) : RecyclerView.Adapter
 
         holder.tvFoodName.text=food.name
 
-        holder.itemView.findViewById<Button>(R.id.btnSelect).setOnClickListener {
+        holder.itemView.findViewById<Button>(R.id.btnSelects).setOnClickListener {
             onItemClick?.invoke(food)
         }
 

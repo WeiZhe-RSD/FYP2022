@@ -70,19 +70,19 @@
             android:id="@+id/rbNoSpicy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RadioButton" />
+            android:text="No Spicy" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/rbLessSpicy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RadioButton" />
+            android:text="Less Spicy" />
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/rbSpicy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RadioButton" />
+            android:text="Spicy" />
     </RadioGroup>
 
     <TextView
@@ -97,7 +97,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rgFood" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/tfRemark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="46dp"
@@ -141,7 +141,7 @@
         app:layout_constraintVertical_bias="0.533" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnAddToCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -158,7 +158,7 @@
         android:layout_marginStart="1dp"
         android:layout_marginBottom="19dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddToCart"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
