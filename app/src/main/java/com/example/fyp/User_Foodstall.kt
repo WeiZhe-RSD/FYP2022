@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +32,7 @@ class User_Foodstall : AppCompatActivity() {
         if(cafeteria!= null){
             val imgCafeteriaChoose = findViewById<ImageView>(R.id.imgCafeteriaChoose)
             val tvCafeName = findViewById<TextView>(R.id.tvCafeName)
+            val btnCafeteriaMap = findViewById<Button>(R.id.btnCafeteriaMap)
 
             tvCafeName.text = cafeteria.name
             cafeterianame = cafeteria.name.toString()
@@ -58,6 +60,12 @@ class User_Foodstall : AppCompatActivity() {
             foodstallAdapter.onItemClick = {
                 val intent = Intent(this, User_Menu::class.java)
                 intent.putExtra("foodstall", it)
+                startActivity(intent)
+            }
+
+            btnCafeteriaMap.setOnClickListener(){
+                val intent = Intent(this, com.example.fyp.Map::class.java)
+                intent.putExtra("cafeteria", cafeteria)
                 startActivity(intent)
             }
 

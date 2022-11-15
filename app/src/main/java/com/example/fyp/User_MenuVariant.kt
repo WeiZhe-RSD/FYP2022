@@ -5,13 +5,11 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fyp.Entity.Food
 import com.example.fyp.Entity.FoodStall
+import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.storage.FirebaseStorage
@@ -42,6 +40,7 @@ class User_MenuVariant : AppCompatActivity() {
             val btnAddToCart = findViewById<Button>(R.id.btnAddToCart)
             val tfRemark = findViewById<TextView>(R.id.tfRemark)
             var im:String = ""
+            var detailSize:Int = 0
 
 //            db = FirebaseFirestore.getInstance()
 //
@@ -100,19 +99,34 @@ class User_MenuVariant : AppCompatActivity() {
                 val remark = tfRemark.text
 
 
-                /*val db = FirebaseFirestore.getInstance()
+                val db = FirebaseFirestore.getInstance()
+
+                val collection = db.collection("cartDetail")
+                val countQuery = collection.count()
+                countQuery.get(AggregateSource.SERVER).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val snapshot = task.result
+                        detailSize = snapshot.count.toInt()
+                    } else {
+
+                    }
+                }
+
+
+
                 val cartDetail = hashMapOf(
-                    "address" to tfAddress.text.trim().toString(),
-                    "dateEnd" to btnEndDate.text.toString(),
-                    "dateStart" to btnStartDate.text.toString(),
+                    /*"foodID" to food.,*/
+                    "quantity" to tvQuantity.text.trim().toString().toDouble(),
+                    "cartID" to "K0001",
+                    "remark" to tfRemark.text.toString(),
                 )
 
-                db.collection("events")
-                    .document(currentDate.toString()).set(event)
+                db.collection("cartDetail")
+                    .document(detailSize.toString()).set(cartDetail)
                     .addOnSuccessListener { Toast.makeText(this,"Added Successfully", Toast.LENGTH_SHORT).show()
                         finish()
                     }
-                    .addOnFailureListener {Toast.makeText(this,"Added Failed", Toast.LENGTH_SHORT).show()}*/
+                    .addOnFailureListener {Toast.makeText(this,"Added Failed", Toast.LENGTH_SHORT).show()}
 
 
 

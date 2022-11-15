@@ -39,11 +39,11 @@
         android:id="@+id/tvCafeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="68dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/imgCafeteriaChoose"
         app:layout_constraintStart_toEndOf="@+id/imgCafeteriaChoose"
-        app:layout_constraintTop_toTopOf="@+id/imgCafeteriaChoose" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFoodStall"
@@ -63,5 +63,14 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnCafeteriaMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:text="Map"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCafeteriaChoose"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

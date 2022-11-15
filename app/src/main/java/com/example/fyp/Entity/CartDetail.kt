@@ -5,4 +5,6 @@ data class CartDetail(
     var foodID:String?= null,
 
     var quantity:Double?= null,
+    var Remark:String?=null
+
 )
