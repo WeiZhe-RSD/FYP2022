@@ -27,7 +27,7 @@ class Seller_AddItems : AppCompatActivity() {
         val tvDesc = findViewById<TextView>(R.id.tvDesc)
         val tvPrice = findViewById<TextView>(R.id.tvPrice)
         val tvCalories = findViewById<TextView>(R.id.tvCalories)
-        val imgAddNewItem = findViewById<ImageView>(R.id.imgAddNewItem)
+        val imgName = findViewById<ImageView>(R.id.imgAddNewItem)
 
         btnNewItemImg.setOnClickListener(){
             getImage.launch("image/*")
@@ -42,20 +42,23 @@ class Seller_AddItems : AppCompatActivity() {
                 Toast.makeText(applicationContext,"Please enter price for the item", Toast.LENGTH_SHORT).show()
             }else if(tvCalories.text.trim().isEmpty()){
                 Toast.makeText(applicationContext,"Please enter calories for the item", Toast.LENGTH_SHORT).show()
-            }else if(imgAddNewItem.drawable == null){
+            }else if(imgName.drawable == null){
                 Toast.makeText(applicationContext,"Please insert images for the item", Toast.LENGTH_SHORT).show()
             }else{
-                val imgName = ref.child("foodimg/$imgAddNewItem.png")
+                val imgName = ref.child("foodimg/$imgName.png")
                 imgName.putFile(imgUri)
                 val db = FirebaseFirestore.getInstance()
                 val food = hashMapOf(
-                    "name" to tvNewItemName.text.trim().toString(),
+                    "calories" to tvCalories.text.trim().toString().toDouble(),
                     "description" to tvDesc.text.trim().toString(),
-                    "price" to tvPrice.text.trim().toString(),
-                    "calories" to tvCalories.text.trim().toString(),
-                    "image" to "$imgAddNewItem.png",
-                    "status" to "Active",
-                    "foodstallID" to "Masakan"
+                    "foodID" to "F0003",
+                    "foodstallID" to "Masakan",
+                    "image" to "$imgName.png",
+                    "name" to tvNewItemName.text.trim().toString(),
+                    "price" to tvPrice.text.trim().toString().toDouble(),
+                    "status" to "Active"
+
+
                 )
                 db.collection("food")
                     .document(tvNewItemName.text.toString()).set(food)

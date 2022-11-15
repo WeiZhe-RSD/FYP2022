@@ -7,7 +7,7 @@ data class Food(
     var name:String?= null,
     var description:String?= null,
     var image:String?= null,
-    var price:Double?= null,
+    //var price:Double?= null,
     var type:String?= null,
 
 
@@ -21,9 +21,8 @@ data class Food(
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
-
         parcel.readString(),
-        parcel.readDouble(),
+        //parcel.readDouble(),
         parcel.readString(),
         parcel.readInt(),
         parcel.readString(),
@@ -36,7 +35,7 @@ data class Food(
         parcel.writeString(name)
         parcel.writeString(description)
         parcel.writeString(image)
-        parcel.writeValue(price)
+        //parcel.writeValue(price)
         parcel.writeString(type)
 
         parcel.writeValue(calorie)

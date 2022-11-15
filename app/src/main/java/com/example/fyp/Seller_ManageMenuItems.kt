@@ -40,6 +40,7 @@ class Seller_ManageMenuItems : AppCompatActivity() {
             startActivity(intent)
         }*/
 
+
         btnAdd.setOnClickListener() {
             val intent = Intent(this@Seller_ManageMenuItems, Seller_AddItems::class.java)
             startActivity(intent)
@@ -51,7 +52,7 @@ class Seller_ManageMenuItems : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         db.collection("food").addSnapshotListener(object : EventListener<QuerySnapshot> {
 
-            @SuppressLint("NotifyDataSetChanged")
+
             override fun onEvent(
                 value: QuerySnapshot?,
                 error: FirebaseFirestoreException?

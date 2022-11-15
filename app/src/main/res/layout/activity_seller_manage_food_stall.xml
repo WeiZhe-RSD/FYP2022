@@ -9,8 +9,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="49dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -136,7 +136,7 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="70dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="40dp"
                 android:text="Operating Hours"
@@ -151,7 +151,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="60dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
             <Button
                 android:id="@+id/btnOpening"
