@@ -127,9 +127,8 @@ class MainActivity : AppCompatActivity() {
 
                         btnchunwai.setOnClickListener() {
                             val intent = Intent(this, Seller_ShopManager::class.java)
+                            intent.putExtra("userObj", userObj)
                             startActivity(intent)
-
-
 
 
                         }

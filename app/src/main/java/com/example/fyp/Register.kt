@@ -1,32 +1,35 @@
 package com.example.fyp
 
+import android.content.ContentValues.TAG
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import com.example.fyp.Entity.Cafeteria
+import com.example.fyp.Entity.User
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+
 
 class Register : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private val role:String = "Customer"
+    private var count:Int = 0
+    private lateinit var userArrayList: ArrayList<User>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        userArrayList = arrayListOf()
 
         val btnRegistered = findViewById<Button>(R.id.btnRegistered)
         val btnCancel = findViewById<Button>(R.id.btnCancel)
@@ -61,6 +64,14 @@ class Register : AppCompatActivity() {
         var password: String = tfRegisterPassword.text.toString()
         var RepeatPassword: String = tfComfirmPassword.text.toString()
 
+        var temp:Int = 0
+
+        var strinID:String = ""
+
+
+
+
+
         val spicyLevel = rgGender.checkedRadioButtonId
         val result = when(spicyLevel){
             R.id.rdMale-> "Male"
@@ -89,6 +100,42 @@ class Register : AppCompatActivity() {
             Toast.makeText(applicationContext,"Password and Confirm Password do not match",Toast.LENGTH_LONG).show()
             return;
         }else {
+            db = FirebaseFirestore.getInstance()
+            db.collection("user").addSnapshotListener(object : EventListener<QuerySnapshot> {
+
+                override fun onEvent(
+                    value: QuerySnapshot?,
+                    error: FirebaseFirestoreException?
+                ){
+                    if(error != null){
+                        Log.e("Firestore Error", error.message.toString())
+                        return
+
+                    }
+
+
+                    for(dc : DocumentChange in value?.documentChanges!!){
+
+                        if(dc.type == DocumentChange.Type.ADDED){
+                            userArrayList.add((dc.document.toObject(User::class.java)))
+
+                        }
+                    }
+                }
+            })
+
+            count = userArrayList.size
+            temp = count + 1
+
+            if(count<10){
+                strinID = "C000$temp"
+            }else if (count<100){
+                strinID = "C00$temp"
+            }else if (count<1000){
+                strinID = "C0$temp"
+            }else{
+                strinID = "C$temp"
+            }
 
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener() { task ->
@@ -99,11 +146,16 @@ class Register : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
                         val user = hashMapOf(
+                            "id" to strinID,
                             "name" to name,
                             "gender" to result,
                             "email" to email,
                             "role" to role
                         )
+
+
+
+
                         db.collection("user")
                             .document(email)
                             .set(user)

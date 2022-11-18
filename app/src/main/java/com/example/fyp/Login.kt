@@ -27,6 +27,7 @@ class Login : AppCompatActivity() {
 
         btnRegister.setOnClickListener() {
             val intent = Intent(this, Register::class.java)
+
             startActivity(intent)
             finish()
         }
@@ -46,13 +47,13 @@ class Login : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.i("Login Success",task.result.toString())
+                    Log.i("Login Success", task.result.toString())
                     Toast.makeText(this, "Successfully LoggedIn", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this,MainActivity::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
-                    Log.e("Login error",task.exception.toString())
+                    Log.e("Login error", task.exception.toString())
                     Toast.makeText(this, "Log In failed", Toast.LENGTH_LONG).show()
                 }
             }
