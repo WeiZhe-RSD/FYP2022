@@ -8,8 +8,8 @@ data class User(
     var name:String?= null,
     var gender:String? = null,
     var email:String? = null,
-
-    var contactNo:Int?= null,
+    var birth:String? = null,
+    var contactNo:String?= null,
     var image:String?= null,
 
     var status: String?= null,
@@ -20,7 +20,8 @@ data class User(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
@@ -32,7 +33,8 @@ data class User(
         parcel.writeString(name)
         parcel.writeString(gender)
         parcel.writeString(email)
-        parcel.writeValue(contactNo)
+        parcel.writeString(birth)
+        parcel.writeString(contactNo)
         parcel.writeString(image)
         parcel.writeString(status)
         parcel.writeString(role)

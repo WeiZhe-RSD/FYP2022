@@ -7,27 +7,26 @@ data class Food(
     var name:String?= null,
     var description:String?= null,
     var image:String?= null,
-    var price:Double?= null,
+
     var type:String?= null,
-
-
     var calorie:Int?= null,
-
     var status: String?= null,
     var foodstallID: String?= null,
-    var foodID:String?=null
+    var foodID:String?=null,
+    var price:Double?= null,
 
     ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readDouble(),
+
         parcel.readString(),
         parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readDouble(),
     ) {
     }
 
@@ -35,13 +34,14 @@ data class Food(
         parcel.writeString(name)
         parcel.writeString(description)
         parcel.writeString(image)
-        parcel.writeValue(price)
+
         parcel.writeString(type)
 
         parcel.writeValue(calorie)
         parcel.writeString(status)
         parcel.writeString(foodstallID)
         parcel.writeString(foodID)
+        parcel.writeValue(price)
     }
 
     override fun describeContents(): Int {

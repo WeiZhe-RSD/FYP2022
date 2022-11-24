@@ -24,7 +24,9 @@ class User_MenuVariant : AppCompatActivity() {
         setContentView(R.layout.activity_user_menu_variant)
 
         val food  = intent.getParcelableExtra<Food>("food")
-
+/*
+        Log.i("madafakaaaaaaaaaaaaaaa", food.toString())
+*/
 
         if(food!= null){
 
@@ -107,19 +109,18 @@ class User_MenuVariant : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val snapshot = task.result
                         detailSize = snapshot.count.toInt()
-                    } else {
-
-                    }
-                }
+                        detailSize += 1
 
 
 
                 val cartDetail = hashMapOf(
-                    /*"foodID" to food.,*/
+                    "foodID" to food.foodID,
                     "quantity" to tvQuantity.text.trim().toString().toDouble(),
                     "cartID" to "K0001",
                     "remark" to tfRemark.text.toString(),
                 )
+
+
 
                 db.collection("cartDetail")
                     .document(detailSize.toString()).set(cartDetail)
@@ -128,7 +129,10 @@ class User_MenuVariant : AppCompatActivity() {
                     }
                     .addOnFailureListener {Toast.makeText(this,"Added Failed", Toast.LENGTH_SHORT).show()}
 
+                    } else {
 
+                    }
+                }
 
 
             }
