@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.example.fyp.Entity.Cafeteria
 import com.example.fyp.Entity.FoodStall
 import com.example.fyp.Entity.User
@@ -19,6 +20,8 @@ class Seller_ShopManager : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
+    private var stallNameReassigning : String = ""//for reassigning purposes
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +29,7 @@ class Seller_ShopManager : AppCompatActivity() {
 
         val btnManageFoodItems = findViewById<Button>(R.id.btnManageFI)
         val btnManageFoodStall = findViewById<Button>(R.id.btnManageOH)
+        val btnManageFoodOrders = findViewById<Button>(R.id.btnManageOD)
         val tvShopName = findViewById<TextView>(R.id.tvShopName)
 
         ///////////////////////////////////////////////////////////   get current user
@@ -51,8 +55,10 @@ class Seller_ShopManager : AppCompatActivity() {
                         foodstallObj = document.toObject(FoodStall::class.java)
                         Log.i("madafakaaaaaaaaaaaaaaa", foodstallObj.toString())
                     }
-                    /////////////////////  this foodstallObj only exist here,  can try if u can get the data outside this addOnSuccessListioner
+                    /////////////////////  this foodstallObj only exist here,
+                    // can try if u can get the data outside this addOnSuccessListioner
                     tvShopName.text = foodstallObj!!.name
+                    stallNameReassigning = foodstallObj!!.name.toString();
                     /////////////////////
                 }
                 .addOnFailureListener { exception ->
@@ -64,11 +70,18 @@ class Seller_ShopManager : AppCompatActivity() {
 
         btnManageFoodStall.setOnClickListener(){
             val intent = Intent(this@Seller_ShopManager, Seller_ManageFoodStall::class.java)
+            intent.putExtra("foodStall", stallNameReassigning)
             startActivity(intent)
         }
 
         btnManageFoodItems.setOnClickListener(){
             val intent = Intent(this@Seller_ShopManager, Seller_ManageMenuItems::class.java)
+            startActivity(intent)
+        }
+
+        btnManageFoodOrders.setOnClickListener {
+//            Toast.makeText(this, "hehe", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@Seller_ShopManager, Seller_ManageOrderDetails::class.java)
             startActivity(intent)
         }
 

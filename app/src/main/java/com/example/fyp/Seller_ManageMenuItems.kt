@@ -1,6 +1,5 @@
 package com.example.fyp
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -45,6 +44,8 @@ class Seller_ManageMenuItems : AppCompatActivity() {
             val intent = Intent(this@Seller_ManageMenuItems, Seller_AddItems::class.java)
             startActivity(intent)
         }
+
+
 
     }
 

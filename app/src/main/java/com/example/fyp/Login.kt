@@ -55,6 +55,7 @@ class Login : AppCompatActivity() {
                 } else {
                     Log.e("Login error", task.exception.toString())
                     Toast.makeText(this, "Log In failed", Toast.LENGTH_LONG).show()
+
                 }
             }
 
