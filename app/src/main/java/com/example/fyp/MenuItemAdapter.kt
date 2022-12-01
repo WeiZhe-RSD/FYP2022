@@ -36,9 +36,6 @@ class MenuItemAdapter(private val foodList: ArrayList<Food>) : RecyclerView.Adap
     override fun onBindViewHolder(holder: MenuItemViewHolder, position: Int) {
         val food: Food = foodList[position]
 
-
-
-
         val imgName = food.image.toString()
         val storageRef = FirebaseStorage.getInstance().reference.child("foodimg/$imgName")
         val localfile = File.createTempFile("tempImage", "png")

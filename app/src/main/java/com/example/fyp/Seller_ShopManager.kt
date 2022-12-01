@@ -76,11 +76,11 @@ class Seller_ShopManager : AppCompatActivity() {
 
         btnManageFoodItems.setOnClickListener(){
             val intent = Intent(this@Seller_ShopManager, Seller_ManageMenuItems::class.java)
+            intent.putExtra("foodStall", stallNameReassigning)
             startActivity(intent)
         }
 
-        btnManageFoodOrders.setOnClickListener {
-//            Toast.makeText(this, "hehe", Toast.LENGTH_SHORT).show()
+        btnManageFoodOrders.setOnClickListener() {
             val intent = Intent(this@Seller_ShopManager, Seller_ManageOrderDetails::class.java)
             startActivity(intent)
         }

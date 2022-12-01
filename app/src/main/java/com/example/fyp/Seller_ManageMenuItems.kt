@@ -15,12 +15,15 @@ class Seller_ManageMenuItems : AppCompatActivity() {
     private lateinit var MenuItemArrayList: ArrayList<Food>
     private lateinit var MenuItemAdapter: MenuItemAdapter
     private lateinit var db : FirebaseFirestore
+    private lateinit var foodStallID : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seller_manage_menu_items)
 
         val btnAdd = findViewById<Button>(R.id.btnAdd)
+
+        foodStallID = intent.getStringExtra("foodStall")!!
 
         recyclerView = findViewById(R.id.rvMenuItems)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -32,13 +35,6 @@ class Seller_ManageMenuItems : AppCompatActivity() {
         recyclerView.adapter = MenuItemAdapter
 
         setDataInList()
-
-        /*MenuItemAdapter.onItemClick = {
-            val intent = Intent(this, Seller_AddItems::class.java)
-            intent.putExtra("food", it)
-            startActivity(intent)
-        }*/
-
 
         btnAdd.setOnClickListener() {
             val intent = Intent(this@Seller_ManageMenuItems, Seller_AddItems::class.java)
@@ -65,11 +61,10 @@ class Seller_ManageMenuItems : AppCompatActivity() {
                 }
 
                 for(dc : DocumentChange in value?.documentChanges!!){
-
                     if(dc.type == DocumentChange.Type.ADDED){
-                        MenuItemArrayList.add((dc.document.toObject(Food::class.java)))
-                        if(MenuItemArrayList[MenuItemArrayList.size - 1].status == "Inactive"){
-                            MenuItemArrayList.removeAt(MenuItemArrayList.size - 1)
+                        var item = dc.document.toObject(Food::class.java)
+                        if (item.foodstallID == foodStallID){
+                            MenuItemArrayList.add(item)
                         }
                     }
                 }
