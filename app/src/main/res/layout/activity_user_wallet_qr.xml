@@ -4,17 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3388FF"
     tools:context=".User_WalletQR">
 
     <ImageView
         android:id="@+id/imgQR"
         android:layout_width="312dp"
         android:layout_height="351dp"
-        android:layout_marginTop="82dp"
+        android:layout_marginTop="152dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:text="QR code"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/imgQR"
+        app:layout_constraintStart_toStartOf="@+id/imgQR"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Ewallet Balance"
+        app:layout_constraintStart_toStartOf="@+id/imgQR"
+        app:layout_constraintTop_toBottomOf="@+id/imgQR" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/imgQR"
+        app:layout_constraintTop_toBottomOf="@+id/imgQR" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

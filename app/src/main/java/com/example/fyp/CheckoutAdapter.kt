@@ -13,11 +13,11 @@ import com.example.fyp.Entity.CartDetail
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 
-class CartDetailAdapter (private val cafeteriaList: ArrayList<CartDetail>) : RecyclerView.Adapter<CartDetailAdapter.CafeteriaViewHolder>(){
+class CheckoutAdapter (private val cafeteriaList: ArrayList<CartDetail>) : RecyclerView.Adapter<CheckoutAdapter.CafeteriaViewHolder>(){
     var onItemClick : ((CartDetail) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CafeteriaViewHolder {
-        val itemHolder = LayoutInflater.from(parent.context).inflate(R.layout.layout_cart, parent, false)
+        val itemHolder = LayoutInflater.from(parent.context).inflate(R.layout.layout_checkout, parent, false)
         return CafeteriaViewHolder(itemHolder)
 
     }
@@ -45,9 +45,6 @@ class CartDetailAdapter (private val cafeteriaList: ArrayList<CartDetail>) : Rec
 
         holder.tvCafeteriaName.text=cafeteria.name
 
-        holder.itemView.findViewById<Button>(R.id.btnCartEdit).setOnClickListener {
-            onItemClick?.invoke(cafeteria)
-        }
 
     }
 

@@ -17,6 +17,34 @@
         android:theme="@style/Theme.FYP"
         tools:targetApi="31">
         <activity
+            android:name=".user_OrderComplete"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".User_CheckPin"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".User_Checkout"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".User_EditCart"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Seller_ManageOrderDetails"
             android:exported="false">
             <meta-data

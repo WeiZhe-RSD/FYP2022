@@ -7,6 +7,7 @@ data class CartDetail(
     var cartID:String?= null,
     var foodID:String?= null,
     var name:String?=null,
+    var detailID:String?=null,
     var Remark:String?=null,
     var status:String?=null,
 
@@ -21,9 +22,8 @@ data class CartDetail(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readString(),
         parcel.readString()
-        //parcel.readValue(Double::class.java.classLoader) as? Double,
-        //parcel.readValue(Int::class.java.classLoader) as? Int
     ) {
     }
 
@@ -31,12 +31,11 @@ data class CartDetail(
         parcel.writeString(cartID)
         parcel.writeString(foodID)
         parcel.writeString(name)
+        parcel.writeString(detailID)
         parcel.writeString(Remark)
         parcel.writeString(status)
         parcel.writeString(subtotal)
         parcel.writeString(quantity)
-        //parcel.writeValue(subtotal)
-        //parcel.writeValue(quantity)
     }
 
     override fun describeContents(): Int {

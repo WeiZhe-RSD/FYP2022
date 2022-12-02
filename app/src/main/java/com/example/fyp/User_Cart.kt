@@ -6,16 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fyp.Entity.Cart
-import com.example.fyp.Entity.CartDetail
-import com.example.fyp.Entity.FoodStall
-import com.example.fyp.Entity.User
+import com.example.fyp.Entity.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class User_Cart : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -26,40 +27,60 @@ class User_Cart : AppCompatActivity() {
     private lateinit var cID: String
     private lateinit var userObj:User
     private lateinit var cartObj:Cart
+    private lateinit var a:Food
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_cart)
 
-         userObj  = intent.getParcelableExtra<User>("userObj")!!
+        auth = FirebaseAuth.getInstance()
 
-        if(userObj!= null) {
-            Log.i("inherit Success", userObj.email.toString())
+        val user = auth.currentUser
+        db = Firebase.firestore
 
-            recyclerView = findViewById(R.id.rvCart)
-            recyclerView.layoutManager = LinearLayoutManager(this)
-            recyclerView.setHasFixedSize(true)
-            cartArrayList = arrayListOf()
+        val userRef = db.collection("user").document(user?.email.toString())
+        userRef.get().addOnSuccessListener {
+            if (it != null) {
+                userObj = it.toObject(User::class.java)!!
 
-            cartAdapter = CartDetailAdapter(cartArrayList)
+                Log.i("inherit Success", userObj.email.toString())
 
-            recyclerView.adapter = cartAdapter
+                recyclerView = findViewById(R.id.rvCart)
+                recyclerView.layoutManager = LinearLayoutManager(this)
+                recyclerView.setHasFixedSize(true)
+                cartArrayList = arrayListOf()
 
-            setDataInList()
+                cartAdapter = CartDetailAdapter(cartArrayList)
 
-            cartAdapter.onItemClick = {
-                val intent = Intent(this, User_CartDetail::class.java)
+                recyclerView.adapter = cartAdapter
 
-                startActivity(intent)
+                setDataInList()
+
+                cartAdapter.onItemClick = {
+                    val intent = Intent(this, User_EditCart::class.java)
+                    intent.putExtra("cart", it)
+                    startActivity(intent)
+                    finish()
+                }
+
+                val btnCheckOut = findViewById<Button>(R.id.btnCheckOut)
+
+                btnCheckOut.setOnClickListener(){
+                    val intent = Intent(this, User_Checkout::class.java)
+                    startActivity(intent)
+                }
+
             }
-
-
         }
+
 
     }
 
 
     private fun setDataInList() {
+        var tvCartCafe = findViewById<TextView>(R.id.tvCartCafe)
+        var tvCartTotal = findViewById<TextView>(R.id.tvCartTotal)
+        var sub: Double = 0.0
         db = FirebaseFirestore.getInstance()
         db.collection("cart")
             .whereEqualTo("customerID", userObj.id)
@@ -70,13 +91,51 @@ class User_Cart : AppCompatActivity() {
                     Log.i("madafakaaaaaaaaaaaaaaa", cartObj.toString())
                 }
 
-                val cDDB = db.collection("cartDetail")
 
-                cDDB
+                db = FirebaseFirestore.getInstance()
+                db.collection("cartDetail")
+                    .whereEqualTo("cartID", cartObj.cartID)
+                    .whereEqualTo("status", "Active")
+                    .get()
+                    .addOnSuccessListener { documentss ->
+                        Log.i("kongannnnnnnnnnnnnnnnnn", userObj.toString())
+
+                        for (documentsss in documentss) {
+                            cartArrayList.add(documentsss.toObject(CartDetail::class.java))
+                            sub += cartArrayList.get(cartArrayList.size - 1).subtotal.toString()
+                                .toDouble()
+                        }
+
+                        if(cartArrayList.size!=0) {
+
+                            db = FirebaseFirestore.getInstance()
+                            db.collection("food")
+                                .whereEqualTo(
+                                    "foodID",
+                                    cartArrayList.get(cartArrayList.size - 1).foodID
+                                )
+                                .get()
+                                .addOnSuccessListener { documentxx ->
+
+                                    for (documentxxx in documentxx) {
+                                        a = documentxxx.toObject(Food::class.java)
+                                    }
+                                    tvCartCafe.text = a.foodstallID
+                                }
+                            val df = DecimalFormat("#.##")
+                            df.roundingMode = RoundingMode.DOWN
+                            val roundoff = df.format(sub)
+                            tvCartTotal.text = "RM $roundoff"
+
+                            cartAdapter.notifyDataSetChanged()
+                        }else{
+                            tvCartCafe.text = "The Cart is Empty..."
+                            tvCartTotal.text = "RM 0.00"
+                        }
+                    }
 
 
-
-                /*db.collection("cartDetail").addSnapshotListener(object : EventListener<QuerySnapshot> {
+                        /*db.collection("cartDetail").addSnapshotListener(object : EventListener<QuerySnapshot> {
 
 
                     override fun onEvent(
@@ -109,17 +168,11 @@ class User_Cart : AppCompatActivity() {
                     }
                 })*/
 
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                    }
+
+
             }
-            .addOnFailureListener { exception ->
-                Log.w(ContentValues.TAG, "Error getting documents: ", exception)
-            }
-
-
-
-
-
-
-
-
     }
-}

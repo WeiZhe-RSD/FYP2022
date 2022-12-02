@@ -112,12 +112,17 @@ class User_MenuVariant : AppCompatActivity() {
                         detailSize += 1
 
 
+                        var subtotal = food.price.toString().toDouble()!! * tvQuantity.text.toString().toDouble()
 
                 val cartDetail = hashMapOf(
                     "foodID" to food.foodID,
-                    "quantity" to tvQuantity.text.trim().toString().toDouble(),
+                    "quantity" to tvQuantity.text.trim().toString(),
                     "cartID" to "K0001",
                     "remark" to tfRemark.text.toString(),
+                    "status" to "Active",
+                    "name" to food.name,
+                    "subtotal" to subtotal.toString(),
+                    "detailID" to detailSize.toString(),
                 )
 
 
