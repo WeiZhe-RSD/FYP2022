@@ -9,7 +9,7 @@ data class Food(
     var image:String?= null,
 
     var type:String?= null,
-    var calorie:Int?= null,
+    var calories:Int?= null,
     var status: String?= null,
     var foodstallID: String?= null,
     var foodID:String?=null,
@@ -37,7 +37,7 @@ data class Food(
 
         parcel.writeString(type)
 
-        parcel.writeValue(calorie)
+        parcel.writeValue(calories)
         parcel.writeString(status)
         parcel.writeString(foodstallID)
         parcel.writeString(foodID)

@@ -53,7 +53,6 @@ class Seller_ShopManager : AppCompatActivity() {
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
                         foodstallObj = document.toObject(FoodStall::class.java)
-                        Log.i("madafakaaaaaaaaaaaaaaa", foodstallObj.toString())
                     }
                     /////////////////////  this foodstallObj only exist here,
                     // can try if u can get the data outside this addOnSuccessListioner

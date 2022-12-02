@@ -10,8 +10,8 @@ data class CartDetail(
     var Remark:String?=null,
     var status:String?=null,
 
-    var subtotal:Double?=null,
-    var quantity:Int?= null,
+    var subtotal:String?=null,
+    var quantity:String?= null,
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -20,8 +20,10 @@ data class CartDetail(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readValue(Double::class.java.classLoader) as? Double,
-        parcel.readValue(Int::class.java.classLoader) as? Int
+        parcel.readString(),
+        parcel.readString()
+        //parcel.readValue(Double::class.java.classLoader) as? Double,
+        //parcel.readValue(Int::class.java.classLoader) as? Int
     ) {
     }
 
@@ -31,8 +33,10 @@ data class CartDetail(
         parcel.writeString(name)
         parcel.writeString(Remark)
         parcel.writeString(status)
-        parcel.writeValue(subtotal)
-        parcel.writeValue(quantity)
+        parcel.writeString(subtotal)
+        parcel.writeString(quantity)
+        //parcel.writeValue(subtotal)
+        //parcel.writeValue(quantity)
     }
 
     override fun describeContents(): Int {

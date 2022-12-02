@@ -1,20 +1,26 @@
 package com.example.fyp
 
+import android.content.ContentValues
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.fyp.Entity.FoodStall
+import com.example.fyp.Entity.User
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlin.math.log
 
 class Seller_AddItems : AppCompatActivity() {
     private lateinit var imgUri: Uri
     private lateinit var ref: StorageReference
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,44 +35,78 @@ class Seller_AddItems : AppCompatActivity() {
         val tvCalories = findViewById<TextView>(R.id.tvCalories)
         val imgName = findViewById<ImageView>(R.id.imgAddNewItem)
 
-        btnNewItemImg.setOnClickListener(){
-            getImage.launch("image/*")
-        }
+        val userObj  = intent.getStringExtra("foodStall")
 
-        btnAddNewItem.setOnClickListener(){
-            if(tvNewItemName.text.trim().isEmpty()){
-                Toast.makeText(applicationContext,"Please enter name for the item", Toast.LENGTH_SHORT).show()
-            }else if(tvDesc.text.trim().isEmpty()){
-                Toast.makeText(applicationContext,"Please enter description for the item", Toast.LENGTH_SHORT).show()
-            }else if(tvPrice.text.trim().isEmpty()){
-                Toast.makeText(applicationContext,"Please enter price for the item", Toast.LENGTH_SHORT).show()
-            }else if(tvCalories.text.trim().isEmpty()){
-                Toast.makeText(applicationContext,"Please enter calories for the item", Toast.LENGTH_SHORT).show()
-            }else if(imgName.drawable == null){
-                Toast.makeText(applicationContext,"Please insert images for the item", Toast.LENGTH_SHORT).show()
-            }else{
-                val imgName = ref.child("foodimg/$imgName.png")
-                imgName.putFile(imgUri)
-                val db = FirebaseFirestore.getInstance()
-                val food = hashMapOf(
-                    "calories" to tvCalories.text.trim().toString().toDouble(),
-                    "description" to tvDesc.text.trim().toString(),
-                    "foodID" to "F0003",
-                    "foodstallID" to "Masakan",
-                    "image" to "$imgName.png",
-                    "name" to tvNewItemName.text.trim().toString(),
-                    "price" to tvPrice.text.trim().toString().toDouble(),
-                    "status" to "Active"
+        if(userObj!= null) {
+
+            btnNewItemImg.setOnClickListener() {
+                getImage.launch("image/*")
+            }
+
+            btnAddNewItem.setOnClickListener() {
+                if (tvNewItemName.text.trim().isEmpty()) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Please enter name for the item",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (tvDesc.text.trim().isEmpty()) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Please enter description for the item",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (tvPrice.text.trim().isEmpty()) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Please enter price for the item",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (tvCalories.text.trim().isEmpty()) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Please enter calories for the item",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (imgName.drawable == null) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Please insert images for the item",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+
+                    val regImg = ref.child("foodimg/$imgName.png")
+                    regImg.putFile(imgUri)
+                    //Log.i("File Name", imgName.toString())
+                    db = FirebaseFirestore.getInstance()
+                                val food = hashMapOf(
+                                    "calories" to tvCalories.text.trim().toString().toDouble(),
+                                    "description" to tvDesc.text.trim().toString(),
+                                    "foodID" to "F0003",
+                                    "foodstallID" to userObj,
+                                    "image" to "$imgName.png",
+                                    "name" to tvNewItemName.text.trim().toString(),
+                                    "price" to tvPrice.text.trim().toString().toDouble(),
+                                    "status" to "Active"
+                                )
+                                db.collection("food")
+                                    .document(tvNewItemName.text.toString()).set(food)
+                                    .addOnSuccessListener {
+                                        Toast.makeText(
+                                            this,
+                                            "Added Successfully",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    .addOnFailureListener {
+                                        Toast.makeText(this, "Added Failed", Toast.LENGTH_SHORT)
+                                            .show()
+                                    }
+                                finish()
+                            }
 
 
-                )
-                db.collection("food")
-                    .document(tvNewItemName.text.toString()).set(food)
-                    .addOnSuccessListener { Toast.makeText(this,"Added Successfully", Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener {Toast.makeText(this,"Added Failed", Toast.LENGTH_SHORT).show()
-                    }
-                finish()
             }
         }
 

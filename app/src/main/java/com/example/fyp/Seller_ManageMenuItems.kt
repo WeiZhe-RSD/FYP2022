@@ -22,6 +22,7 @@ class Seller_ManageMenuItems : AppCompatActivity() {
         setContentView(R.layout.activity_seller_manage_menu_items)
 
         val btnAdd = findViewById<Button>(R.id.btnAdd)
+        val userObj  = intent.getStringExtra("foodStall")
 
         foodStallID = intent.getStringExtra("foodStall")!!
 
@@ -38,6 +39,7 @@ class Seller_ManageMenuItems : AppCompatActivity() {
 
         btnAdd.setOnClickListener() {
             val intent = Intent(this@Seller_ManageMenuItems, Seller_AddItems::class.java)
+            intent.putExtra("foodStall", userObj)
             startActivity(intent)
         }
 
