@@ -81,6 +81,7 @@ class Seller_ShopManager : AppCompatActivity() {
 
         btnManageFoodOrders.setOnClickListener() {
             val intent = Intent(this@Seller_ShopManager, Seller_ManageOrderDetails::class.java)
+            intent.putExtra("foodStall", stallNameReassigning)
             startActivity(intent)
         }
 
