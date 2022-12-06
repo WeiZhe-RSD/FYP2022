@@ -82,13 +82,13 @@ class Seller_AddItems : AppCompatActivity() {
 
                     db = FirebaseFirestore.getInstance()
                     val food = hashMapOf(
-                        "calories" to tvCalories.text.trim().toString(),
+                        "calories" to tvCalories.text.trim().toString().toDouble(),
                         "description" to tvDesc.text.trim().toString(),
                         "foodID" to "F0003",
                         "foodstallID" to userObj,
                         "image" to "$imgName.png",
                         "name" to tvNewItemName.text.trim().toString(),
-                        "price" to tvPrice.text.trim().toString(),
+                        "price" to tvPrice.text.trim().toString().toDouble(),
                         "status" to "Active"
                     )
                     db.collection("food")

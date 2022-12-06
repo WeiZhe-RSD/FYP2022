@@ -73,7 +73,7 @@ class User_MenuVariant : AppCompatActivity() {
                 imgFoodDetail.setImageBitmap(bitmap)
             }
 
-            btnDecrease.setOnClickListener(){
+            btnDecrease.setOnClickListener {
                 if(quantity != 1){
                     quantity -= 1
                 }
@@ -81,12 +81,12 @@ class User_MenuVariant : AppCompatActivity() {
 
             }
 
-            btnIncrease.setOnClickListener(){
+            btnIncrease.setOnClickListener {
                 quantity += 1
                 tvQuantity.text = quantity.toString()
             }
 
-            btnAddToCart.setOnClickListener(){
+            btnAddToCart.setOnClickListener {
 
                 val spicyLevel = radioGroup.checkedRadioButtonId
                 val result = when(spicyLevel){

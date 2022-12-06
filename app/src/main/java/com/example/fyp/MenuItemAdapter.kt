@@ -55,7 +55,7 @@ class MenuItemAdapter(private val foodList: ArrayList<Food>) : RecyclerView.Adap
         foodNameReassigned = foodName
 
         holder.itemView.findViewById<Button>(R.id.btnDelete).setOnClickListener {
-            /*//Toast.makeText(it.context, """ ${food.name} """, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(it.context, """ ${food.name} """, Toast.LENGTH_SHORT).show()
 
             foodList.removeAt(position)
             notifyItemRemoved(position)
@@ -68,11 +68,11 @@ class MenuItemAdapter(private val foodList: ArrayList<Food>) : RecyclerView.Adap
                 }
                 .addOnFailureListener {
                         e -> Log.w(TAG, "Error deleting food", e)
-                }*/
+                }
 
-            val updateStatus = db.collection("food").document(foodName.toString())
+            /*val updateStatus = db.collection("food").document(foodName.toString())
             updateStatus
-                .update("status", "Inactive")
+                .update("status", "Inactive")*/
         }
 
         holder.itemView.findViewById<Button>(R.id.btnEdit).setOnClickListener {

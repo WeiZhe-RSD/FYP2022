@@ -47,7 +47,7 @@ class CafeteriaAdapter (private val cafeteriaList: ArrayList<Cafeteria>) : Recyc
 
     }
 
-    public class CafeteriaViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class CafeteriaViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var imgcafeteria = itemView.findViewById<ImageView>(R.id.imgCafeteria)
         var tvCafeteriaName = itemView.findViewById<TextView>(R.id.tvCafeteriaName)
 

@@ -63,10 +63,6 @@ class User_Menu : AppCompatActivity() {
                 intent.putExtra("food", it)
                 startActivity(intent)
             }
-
-
-
-
         }
     }
 
@@ -84,7 +80,6 @@ class User_Menu : AppCompatActivity() {
                 if(error != null){
                     Log.e("Firestore Error", error.message.toString())
                     return
-
                 }
 
 

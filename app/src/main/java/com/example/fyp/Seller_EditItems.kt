@@ -112,13 +112,13 @@ class Seller_EditItems : AppCompatActivity() {
             } else {
                 val db = FirebaseFirestore.getInstance()
                 val food = hashMapOf(
-                    "calories" to editCalories.text.trim().toString(),
+                    "calories" to editCalories.text.trim().toString().toDouble(),
                     "description" to editDesc.text.trim().toString(),
                     "foodID" to "F0003",
                     "foodstallID" to "Masakan",
                     "image" to "$foodImageFromDB",
                     "name" to editItemNameField.text.trim().toString(),
-                    "price" to editPrice.text.trim().toString(),
+                    "price" to editPrice.text.trim().toString().toDouble(),
                     "status" to "Active"
                 )
                 db.collection("food")
@@ -138,8 +138,8 @@ class Seller_EditItems : AppCompatActivity() {
         db.collection("food").document(foodName).get()
             .addOnSuccessListener {
                 var cFoodName = it.getString("name").toString()
-                var cPrice = it.getString("price").toString()
-                var cCalories = it.getString("calories").toString()
+                var cPrice = it.getDouble("price").toString()
+                var cCalories = it.getDouble("calories").toString()
                 var cDescription = it.getString("description").toString()
 
                 //not used but need to get as well

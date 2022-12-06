@@ -34,14 +34,14 @@ class   Register : AppCompatActivity() {
         val btnRegistered = findViewById<Button>(R.id.btnRegistered)
         val btnCancel = findViewById<Button>(R.id.btnCancel)
 
-        auth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance()
         db = Firebase.firestore
 
-        btnRegistered.setOnClickListener() {
+        btnRegistered.setOnClickListener {
             registerNewUser()
         }
 
-        btnCancel.setOnClickListener(){
+        btnCancel.setOnClickListener {
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
@@ -82,23 +82,23 @@ class   Register : AppCompatActivity() {
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(applicationContext, "Please enter name!", Toast.LENGTH_LONG).show()
-            return;
+            return
         }else if (result.isEmpty()) {
             Toast.makeText(applicationContext, "Please enter gender!", Toast.LENGTH_LONG).show()
             return;}
         else if (TextUtils.isEmpty(email)) {
             Toast.makeText(applicationContext, "Please enter email!", Toast.LENGTH_LONG).show()
-            return;
+            return
         }else if (TextUtils.isEmpty(password)) {
             Toast.makeText(applicationContext, "Please enter password!", Toast.LENGTH_LONG).show()
-            return;
+            return
         }else if (TextUtils.isEmpty(RepeatPassword)) {
             Toast.makeText(applicationContext, "Please enter Repeat Password!", Toast.LENGTH_LONG)
                 .show()
-            return;
+            return
         }else if(password != RepeatPassword){
             Toast.makeText(applicationContext,"Password and Confirm Password do not match",Toast.LENGTH_LONG).show()
-            return;
+            return
         }else {
             db = FirebaseFirestore.getInstance()
             db.collection("user").addSnapshotListener(object : EventListener<QuerySnapshot> {
@@ -138,7 +138,7 @@ class   Register : AppCompatActivity() {
             }
 
             auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener() { task ->
+                .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(
                             applicationContext,
@@ -162,7 +162,7 @@ class   Register : AppCompatActivity() {
                             .addOnSuccessListener { documentReference ->
                                 Log.d(
                                     "Firebase",
-                                    "DocumentSnapshot added with ID: ${documentReference.toString()}"
+                                    "DocumentSnapshot added with ID: $documentReference"
                                 )
                             }
                             .addOnFailureListener { e ->

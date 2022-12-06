@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         if (user != null) {
             Log.i("Login Success", user.email.toString())
 
-            val userRef = db.collection("user").document(user?.email.toString())
+            val userRef = db.collection("user").document(user.email.toString())
             userRef.get().addOnSuccessListener {
                 if (it != null) {
                     userObj = it.toObject(User::class.java)!!
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                                 }
 
                                 R.id.nav_profile -> {
-                                    val userRef2 = db.collection("user").document(user?.email.toString())
+                                    val userRef2 = db.collection("user").document(user.email.toString())
                                     userRef2.get().addOnSuccessListener {
                                         userObj = it.toObject(User::class.java)!!
                                     }
@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity() {
                         val btnweizhe = findViewById<Button>(R.id.btnweizhe)
 
 
-                        btnweizhe.setOnClickListener() {
+                        btnweizhe.setOnClickListener {
                             val intent = Intent(this, User_Cafeteria::class.java)
                             startActivity(intent)
                         }
@@ -183,8 +183,9 @@ class MainActivity : AppCompatActivity() {
 
                         val btnchunwai = findViewById<Button>(R.id.btnchunwai)
 
-                        btnchunwai.setOnClickListener() {
+                        btnchunwai.setOnClickListener {
                             val intent = Intent(this, Seller_ShopManager::class.java)
+
                             intent.putExtra("userObj", userObj)
                             startActivity(intent)
 

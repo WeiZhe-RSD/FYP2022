@@ -32,7 +32,7 @@ class User_ProfileEdit : AppCompatActivity() {
                 updateLabel(today)
             }
 
-            btnDatePicker.setOnClickListener(){
+            btnDatePicker.setOnClickListener {
                 DatePickerDialog(this, datePicker, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)).show()
             }
             /////////////////////////////////////////////////
@@ -60,11 +60,11 @@ class User_ProfileEdit : AppCompatActivity() {
 
 
 
-            btnProfileCancel.setOnClickListener(){
+            btnProfileCancel.setOnClickListener {
                 finish()
             }
 
-            btnProfileUpdate.setOnClickListener(){
+            btnProfileUpdate.setOnClickListener {
 
                 val gen = rgProfileGender.checkedRadioButtonId
                 val result = when(gen){

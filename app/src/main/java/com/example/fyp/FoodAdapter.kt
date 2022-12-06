@@ -47,7 +47,7 @@ class FoodAdapter (private val foodList: ArrayList<Food>) : RecyclerView.Adapter
 
     }
 
-    public class FoodViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class FoodViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var imgFood = itemView.findViewById<ImageView>(R.id.imgFood)
         var tvFoodName = itemView.findViewById<TextView>(R.id.tvFoodName)
 

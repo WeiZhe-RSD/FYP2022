@@ -51,7 +51,7 @@ class CartDetailAdapter (private val cafeteriaList: ArrayList<CartDetail>) : Rec
 
     }
 
-    public class CafeteriaViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class CafeteriaViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var imgcafeteria = itemView.findViewById<ImageView>(R.id.imgCart)
         var tvCafeteriaName = itemView.findViewById<TextView>(R.id.tvCartName)
         var tvCartPrice = itemView.findViewById<TextView>(R.id.tvCartPrice)

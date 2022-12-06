@@ -56,7 +56,7 @@ class User_Profile : AppCompatActivity() {
             }
 
 
-            btnProfileEdit.setOnClickListener(){
+            btnProfileEdit.setOnClickListener {
                 val intent = Intent(
                     this, User_ProfileEdit::class.java
                 )

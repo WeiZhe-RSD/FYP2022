@@ -48,7 +48,7 @@ class FoodStallAdapter (private val foodstallList: ArrayList<FoodStall>) : Recyc
 
     }
 
-    public class FoodStallViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class FoodStallViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var imgcafeteria = itemView.findViewById<ImageView>(R.id.imgCafeteria)
         var tvCafeteriaName = itemView.findViewById<TextView>(R.id.tvCafeteriaName)
 
