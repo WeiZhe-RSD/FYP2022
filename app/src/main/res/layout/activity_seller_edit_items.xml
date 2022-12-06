@@ -58,12 +58,12 @@
         android:id="@+id/editItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="40dp"
         android:layout_marginEnd="47dp"
         android:ems="10"
+        android:focusable="false"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:focusable="false"
         app:layout_constraintBottom_toBottomOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView8"
@@ -85,7 +85,7 @@
         android:id="@+id/editDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="40dp"
         android:layout_marginEnd="44dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -111,7 +111,7 @@
         android:id="@+id/editPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="40dp"
         android:layout_marginEnd="42dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -136,7 +136,7 @@
         android:id="@+id/editCalories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -151,12 +151,11 @@
         android:id="@+id/btnSaveChanges"
         android:layout_width="178dp"
         android:layout_height="59dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="#FFC107"
         android:text="Save Changes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editCalories" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSoldOut"
+        tools:layout_editor_absoluteX="116dp" />
 
     <TextView
         android:id="@+id/checkingParam"
@@ -167,5 +166,27 @@
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <Button
+        android:id="@+id/btnSoldOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="72dp"
+        android:text="Sold Out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/btnInStock"
+        app:layout_constraintTop_toTopOf="@+id/btnInStock" />
+
+    <Button
+        android:id="@+id/btnInStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="20dp"
+        android:text="In Stock"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editCalories" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

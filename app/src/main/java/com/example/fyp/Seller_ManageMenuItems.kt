@@ -35,16 +35,19 @@ class Seller_ManageMenuItems : AppCompatActivity() {
 
         recyclerView.adapter = MenuItemAdapter
 
+        MenuItemAdapter.onItemClick = {
+            val intent = Intent(this, Seller_EditItems::class.java)
+            intent.putExtra("foodstall", it)
+            startActivity(intent)
+        }
+
         setDataInList()
 
-        btnAdd.setOnClickListener() {
+        btnAdd.setOnClickListener {
             val intent = Intent(this@Seller_ManageMenuItems, Seller_AddItems::class.java)
             intent.putExtra("foodStall", userObj)
             startActivity(intent)
         }
-
-
-
     }
 
     private fun setDataInList(){

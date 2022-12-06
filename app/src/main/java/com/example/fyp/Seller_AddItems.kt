@@ -35,15 +35,15 @@ class Seller_AddItems : AppCompatActivity() {
         val tvCalories = findViewById<TextView>(R.id.tvCalories)
         val imgName = findViewById<ImageView>(R.id.imgAddNewItem)
 
-        val userObj  = intent.getStringExtra("foodStall")
+        val userObj = intent.getStringExtra("foodStall")
 
-        if(userObj!= null) {
+        if (userObj != null) {
 
-            btnNewItemImg.setOnClickListener() {
+            btnNewItemImg.setOnClickListener {
                 getImage.launch("image/*")
             }
 
-            btnAddNewItem.setOnClickListener() {
+            btnAddNewItem.setOnClickListener {
                 if (tvNewItemName.text.trim().isEmpty()) {
                     Toast.makeText(
                         applicationContext,
@@ -78,42 +78,42 @@ class Seller_AddItems : AppCompatActivity() {
 
                     val regImg = ref.child("foodimg/$imgName.png")
                     regImg.putFile(imgUri)
-                    //Log.i("File Name", imgName.toString())
+                    Log.i("File Name", imgName.toString())
+
                     db = FirebaseFirestore.getInstance()
-                                val food = hashMapOf(
-                                    "calories" to tvCalories.text.trim().toString().toDouble(),
-                                    "description" to tvDesc.text.trim().toString(),
-                                    "foodID" to "F0003",
-                                    "foodstallID" to userObj,
-                                    "image" to "$imgName.png",
-                                    "name" to tvNewItemName.text.trim().toString(),
-                                    "price" to tvPrice.text.trim().toString().toDouble(),
-                                    "status" to "Active"
-                                )
-                                db.collection("food")
-                                    .document(tvNewItemName.text.toString()).set(food)
-                                    .addOnSuccessListener {
-                                        Toast.makeText(
-                                            this,
-                                            "Added Successfully",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                    .addOnFailureListener {
-                                        Toast.makeText(this, "Added Failed", Toast.LENGTH_SHORT)
-                                            .show()
-                                    }
-                                finish()
-                            }
-
-
+                    val food = hashMapOf(
+                        "calories" to tvCalories.text.trim().toString(),
+                        "description" to tvDesc.text.trim().toString(),
+                        "foodID" to "F0003",
+                        "foodstallID" to userObj,
+                        "image" to "$imgName.png",
+                        "name" to tvNewItemName.text.trim().toString(),
+                        "price" to tvPrice.text.trim().toString(),
+                        "status" to "Active"
+                    )
+                    db.collection("food")
+                        .document(tvNewItemName.text.toString()).set(food)
+                        .addOnSuccessListener {
+                            Toast.makeText(
+                                this,
+                                "Added Successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Added Failed", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    finish()
+                }
             }
         }
 
     }
 
     private val getImage = registerForActivityResult(
-        ActivityResultContracts.GetContent()){ uri ->
+        ActivityResultContracts.GetContent()
+    ) { uri ->
 
         val btnNewItemImg = findViewById<Button>(R.id.btnNewItemImg)
         imgUri = uri!!
