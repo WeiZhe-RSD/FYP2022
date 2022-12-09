@@ -22,10 +22,11 @@ class Seller_ManageMenuItems : AppCompatActivity() {
         setContentView(R.layout.activity_seller_manage_menu_items)
 
         val btnAdd = findViewById<Button>(R.id.btnAdd)
-        val userObj  = intent.getStringExtra("foodStall")
+
 
         foodStallID = intent.getStringExtra("foodStall")!!
 
+        Log.i("Menu Items food", foodStallID);
         recyclerView = findViewById(R.id.rvMenuItems)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
@@ -37,7 +38,7 @@ class Seller_ManageMenuItems : AppCompatActivity() {
 
         MenuItemAdapter.onItemClick = {
             val intent = Intent(this, Seller_EditItems::class.java)
-            intent.putExtra("foodstall", it)
+            intent.putExtra("foodStall",it )
             startActivity(intent)
         }
 
@@ -45,7 +46,7 @@ class Seller_ManageMenuItems : AppCompatActivity() {
 
         btnAdd.setOnClickListener {
             val intent = Intent(this@Seller_ManageMenuItems, Seller_AddItems::class.java)
-            intent.putExtra("foodStall", userObj)
+            intent.putExtra("foodStall", foodStallID)
             startActivity(intent)
         }
     }

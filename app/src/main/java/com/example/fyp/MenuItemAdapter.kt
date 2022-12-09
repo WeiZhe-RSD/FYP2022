@@ -62,26 +62,29 @@ class MenuItemAdapter(private val foodList: ArrayList<Food>) : RecyclerView.Adap
             notifyItemRangeChanged(position, foodList.size)
             notifyDataSetChanged()
 
-            db.collection("food").document(food.name.toString()).delete()
+            /*db.collection("food").document(food.name.toString()).delete()
+                .addOnSuccessListener {
+                    Toast.makeText(holder.itemView.context, "This " + food.name.toString() + " has been deleted successfully!",Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                        e -> Log.w(TAG, "Error deleting food", e)
+                }*/
+
+            db.collection("food").document(foodName.toString())
+                .update("status", "Inactive")
                 .addOnSuccessListener {
                     Toast.makeText(holder.itemView.context, "This " + food.name.toString() + " has been deleted successfully!",Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener {
                         e -> Log.w(TAG, "Error deleting food", e)
                 }
-
-            /*val updateStatus = db.collection("food").document(foodName.toString())
-            updateStatus
-                .update("status", "Inactive")*/
         }
 
         holder.itemView.findViewById<Button>(R.id.btnEdit).setOnClickListener {
-            val intent = Intent(it.context, Seller_EditItems::class.java)
-            intent.putExtra("foodName", food.name.toString())
-            it.context.startActivity(intent)
-
-            val userObj  = intent.getStringExtra("foodStall")
-            intent.putExtra("foodStall", userObj)
+            //val intent = Intent(it.context, Seller_EditItems::class.java)
+            //intent.putExtra("foodName", food.name.toString())
+            onItemClick?.invoke(food)
+            //it.context.startActivity(intent)
         }
     }
 

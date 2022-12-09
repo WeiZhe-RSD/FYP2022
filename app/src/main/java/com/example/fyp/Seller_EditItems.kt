@@ -4,13 +4,17 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
+import com.example.fyp.Entity.Cafeteria
 import com.example.fyp.Entity.Food
+import com.example.fyp.Entity.FoodStall
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlin.math.log
 
 class Seller_EditItems : AppCompatActivity() {
     private lateinit var imgUri: Uri
@@ -19,8 +23,6 @@ class Seller_EditItems : AppCompatActivity() {
 
     private var foodName: String? = ""
     private var foodNameReassigned: String? = ""
-
-    private var foodStall: String? = ""
     private var foodStallValidaiton: String? = ""
 
     private var foodImageFromDB: String? = ""
@@ -37,11 +39,15 @@ class Seller_EditItems : AppCompatActivity() {
 
     private lateinit var foodStallID: String
 
+    private lateinit var foodstall: Food
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seller_edit_items)
 
+        foodstall = intent.getParcelableExtra<Food>("foodStall")!!
+        Log.i("apapappapaap", foodstall.toString())
         ref = FirebaseStorage.getInstance().reference
         db = Firebase.firestore
 
@@ -57,10 +63,11 @@ class Seller_EditItems : AppCompatActivity() {
         btnSoldOut = findViewById(R.id.btnSoldOut)
         btnInStock = findViewById(R.id.btnInStock)
 
+        //foodStallID = intent.getStringExtra("foodStall").toString();
+
 
         //Get String from previous intent
-        getCurrentImgSrc()
-
+        foodName=foodstall.name
         foodNameReassigned = foodName
         getSpecificFoodData(foodNameReassigned!!)
 
@@ -82,55 +89,51 @@ class Seller_EditItems : AppCompatActivity() {
     }
 
     private fun updateFoodData() {
-        //val userObj = intent.getStringExtra("foodStall")
-
-        //if (userObj != null) {
-            if (editItemNameField.text.trim().isEmpty()) {
-                Toast.makeText(
-                    applicationContext,
-                    "Please enter name for the item",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else if (editDesc.text.trim().isEmpty()) {
-                Toast.makeText(
-                    applicationContext,
-                    "Please enter description for the item",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else if (editPrice.text.trim().isEmpty()) {
-                Toast.makeText(
-                    applicationContext,
-                    "Please enter price for the item",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else if (editCalories.text.trim().isEmpty()) {
-                Toast.makeText(
-                    applicationContext,
-                    "Please enter calories for the item",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                val db = FirebaseFirestore.getInstance()
-                val food = hashMapOf(
-                    "calories" to editCalories.text.trim().toString().toDouble(),
-                    "description" to editDesc.text.trim().toString(),
-                    "foodID" to "F0003",
-                    "foodstallID" to "Masakan",
-                    "image" to "$foodImageFromDB",
-                    "name" to editItemNameField.text.trim().toString(),
-                    "price" to editPrice.text.trim().toString().toDouble(),
-                    "status" to "Active"
-                )
-                db.collection("food")
-                    .document(editItemNameField.text.toString()).set(food)
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(this, "Updated Failed", Toast.LENGTH_SHORT).show()
-                    }
-                finish()
-            //}
+        if (editItemNameField.text.trim().isEmpty()) {
+            Toast.makeText(
+                applicationContext,
+                "Please enter name for the item",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (editDesc.text.trim().isEmpty()) {
+            Toast.makeText(
+                applicationContext,
+                "Please enter description for the item",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (editPrice.text.trim().isEmpty()) {
+            Toast.makeText(
+                applicationContext,
+                "Please enter price for the item",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (editCalories.text.trim().isEmpty()) {
+            Toast.makeText(
+                applicationContext,
+                "Please enter calories for the item",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            val db = FirebaseFirestore.getInstance()
+            val food = hashMapOf(
+                "calories" to editCalories.text.trim().toString(),
+                "description" to editDesc.text.trim().toString(),
+                "foodID" to foodstall.foodID,
+                "foodstallID" to foodstall.foodstallID,
+                "image" to "$foodImageFromDB",
+                "name" to editItemNameField.text.trim().toString(),
+                "price" to editPrice.text.trim().toString(),
+                "status" to "Active"
+            )
+            db.collection("food")
+                .document(editItemNameField.text.toString()).set(food)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Updated Failed", Toast.LENGTH_SHORT).show()
+                }
+            finish()
         }
     }
 
@@ -138,8 +141,8 @@ class Seller_EditItems : AppCompatActivity() {
         db.collection("food").document(foodName).get()
             .addOnSuccessListener {
                 var cFoodName = it.getString("name").toString()
-                var cPrice = it.getDouble("price").toString()
-                var cCalories = it.getDouble("calories").toString()
+                var cPrice = it.getString("price").toString()
+                var cCalories = it.getString("calories").toString()
                 var cDescription = it.getString("description").toString()
 
                 //not used but need to get as well
@@ -153,10 +156,6 @@ class Seller_EditItems : AppCompatActivity() {
             }
     }
 
-    private fun getCurrentImgSrc() {
-        val intent = intent
-        foodName = intent.getStringExtra("foodName")
-    }
 }
 
 
