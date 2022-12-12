@@ -30,6 +30,8 @@ class Seller_ShopManager : AppCompatActivity() {
         val btnManageFoodItems = findViewById<Button>(R.id.btnManageFI)
         val btnManageFoodStall = findViewById<Button>(R.id.btnManageOH)
         val btnManageFoodOrders = findViewById<Button>(R.id.btnManageOD)
+        val btnViewDailyReport = findViewById<Button>(R.id.btnViewDailyReport)
+        val btnViewMonthlyReport = findViewById<Button>(R.id.btnViewMonthlyReport)
         val tvShopName = findViewById<TextView>(R.id.tvShopName)
 
         ///////////////////////////////////////////////////////////   get current user
@@ -80,6 +82,18 @@ class Seller_ShopManager : AppCompatActivity() {
 
         btnManageFoodOrders.setOnClickListener {
             val intent = Intent(this@Seller_ShopManager, Seller_ManageOrderDetails::class.java)
+            intent.putExtra("foodStall", stallNameReassigning)
+            startActivity(intent)
+        }
+
+        btnViewDailyReport.setOnClickListener {
+            val intent = Intent(this@Seller_ShopManager, Seller_DailyReport::class.java)
+            intent.putExtra("foodStall", stallNameReassigning)
+            startActivity(intent)
+        }
+
+        btnViewMonthlyReport.setOnClickListener {
+            val intent = Intent(this@Seller_ShopManager, Seller_MonthlyReport::class.java)
             intent.putExtra("foodStall", stallNameReassigning)
             startActivity(intent)
         }
