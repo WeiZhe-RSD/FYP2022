@@ -51,7 +51,7 @@
                             android:id="@+id/imgItem1"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            app:srcCompat="@drawable/FoodIcon" />
+                            app:srcCompat="@drawable/fooditemicon" />
 
                         <LinearLayout
                             android:layout_width="213dp"
@@ -159,7 +159,7 @@
                             android:id="@+id/imgItem3"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            app:srcCompat="@drawable/Ordericon" />
+                            app:srcCompat="@drawable/ordericon" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
