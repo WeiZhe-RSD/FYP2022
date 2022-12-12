@@ -1,21 +1,19 @@
 package com.example.fyp
 
-import android.content.ContentValues
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.fyp.Entity.FoodStall
-import com.example.fyp.Entity.User
+import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlin.math.log
 
 class Seller_AddItems : AppCompatActivity() {
     private lateinit var imgUri: Uri
@@ -34,16 +32,30 @@ class Seller_AddItems : AppCompatActivity() {
         val tvPrice = findViewById<TextView>(R.id.tvPrice)
         val tvCalories = findViewById<TextView>(R.id.tvCalories)
         val imgName = findViewById<ImageView>(R.id.imgAddNewItem)
+        val rgFoodType = findViewById<RadioGroup>(R.id.rgFoodType)
 
-        val userObj  = intent.getStringExtra("foodStall")
+        val itemType = rgFoodType.checkedRadioButtonId
+        val result = when(itemType){
+            R.id.rdFood -> "Food"
+            R.id.rbBeverage -> "Beverage"
 
-        if(userObj!= null) {
+            else -> "Error"
+        }
 
-            btnNewItemImg.setOnClickListener() {
+        val userObj = intent.getStringExtra("foodStall")
+
+        db = FirebaseFirestore.getInstance()
+
+        if (userObj != null) {
+
+            btnNewItemImg.setOnClickListener {
                 getImage.launch("image/*")
             }
 
-            btnAddNewItem.setOnClickListener() {
+            btnAddNewItem.setOnClickListener {
+                var foodSize: Int = 0
+                var id: String = ""
+
                 if (tvNewItemName.text.trim().isEmpty()) {
                     Toast.makeText(
                         applicationContext,
@@ -68,36 +80,63 @@ class Seller_AddItems : AppCompatActivity() {
                         "Please enter calories for the item",
                         Toast.LENGTH_SHORT
                     ).show()
-                } else if (imgName.drawable == null) {
+                }else if (imgName.drawable == null) {
                     Toast.makeText(
                         applicationContext,
                         "Please insert images for the item",
                         Toast.LENGTH_SHORT
                     ).show()
+                } else if (result.isEmpty()) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Please select item type for the item",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
-
                     val regImg = ref.child("foodimg/$imgName.png")
                     regImg.putFile(imgUri)
-                    //Log.i("File Name", imgName.toString())
-                    db = FirebaseFirestore.getInstance()
+                    Log.i("File Name", imgName.toString())
+
+                    val collection = db.collection("food")
+                    val countQuery = collection.count()
+                    countQuery.get(AggregateSource.SERVER)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val snapshot = task.result
+                                foodSize = snapshot.count.toInt()
+                                foodSize += 1
+
+                                if (foodSize < 10) {
+                                    id =
+                                        "F000$foodSize"
+                                } else if (foodSize < 100) {
+                                    id =
+                                        "F00$foodSize"
+                                } else if (foodSize < 1000) {
+                                    id =
+                                        "F0$foodSize"
+                                } else if (foodSize < 10000) {
+                                    id =
+                                        "F$foodSize"
+                                }
+
                                 val food = hashMapOf(
-                                    "calories" to tvCalories.text.trim().toString().toDouble(),
+                                    "calories" to tvCalories.text.trim().toString(),
                                     "description" to tvDesc.text.trim().toString(),
-                                    "foodID" to "F0003",
+                                    "foodID" to id,
                                     "foodstallID" to userObj,
                                     "image" to "$imgName.png",
                                     "name" to tvNewItemName.text.trim().toString(),
-                                    "price" to tvPrice.text.trim().toString().toDouble(),
-                                    "status" to "Active"
+                                    "price" to tvPrice.text.trim().toString(),
+                                    "status" to "Active",
+                                    "type" to result
                                 )
                                 db.collection("food")
                                     .document(tvNewItemName.text.toString()).set(food)
                                     .addOnSuccessListener {
                                         Toast.makeText(
-                                            this,
-                                            "Added Successfully",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                            this, "Added Successfully", Toast.LENGTH_SHORT)
+                                            .show()
                                     }
                                     .addOnFailureListener {
                                         Toast.makeText(this, "Added Failed", Toast.LENGTH_SHORT)
@@ -105,15 +144,16 @@ class Seller_AddItems : AppCompatActivity() {
                                     }
                                 finish()
                             }
-
-
+                        }
+                }
             }
         }
 
     }
 
     private val getImage = registerForActivityResult(
-        ActivityResultContracts.GetContent()){ uri ->
+        ActivityResultContracts.GetContent()
+    ) { uri ->
 
         val btnNewItemImg = findViewById<Button>(R.id.btnNewItemImg)
         imgUri = uri!!

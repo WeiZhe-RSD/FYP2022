@@ -125,161 +125,161 @@ class   Register : AppCompatActivity() {
 
                     if(check == true){
 
-            count = userArrayList.size
-            temp = count + 1
+                        count = userArrayList.size
+                        temp = count + 1
 
-            if(count<10){
-                strinID = "C000$temp"
-            }else if (count<100){
-                strinID = "C00$temp"
-            }else if (count<1000){
-                strinID = "C0$temp"
-            }else{
-                strinID = "C$temp"
-            }
+                        if(count<10){
+                            strinID = "C000$temp"
+                        }else if (count<100){
+                            strinID = "C00$temp"
+                        }else if (count<1000){
+                            strinID = "C0$temp"
+                        }else{
+                            strinID = "C$temp"
+                        }
 
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener() { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(
-                            applicationContext,
-                            "Registration successful!",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        val user = hashMapOf(
-                            "id" to strinID,
-                            "name" to name,
-                            "gender" to result,
-                            "email" to email,
-                            "role" to role,
-                            "status" to "Active",
-                            "contactNo" to contact,
-                            "image" to "",
+                        auth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener() { task ->
+                                if (task.isSuccessful) {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Registration successful!",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    val user = hashMapOf(
+                                        "id" to strinID,
+                                        "name" to name,
+                                        "gender" to result,
+                                        "email" to email,
+                                        "role" to role,
+                                        "status" to "Active",
+                                        "contactNo" to contact,
+                                        "image" to "",
 
-                        )
-
-
-
-
-                        db.collection("user")
-                            .document(email)
-                            .set(user)
-                            .addOnSuccessListener { documentReference ->
-                                Log.d(
-                                    "Firebase",
-                                    "DocumentSnapshot added with ID: ${documentReference.toString()}"
-                                )
-                            }
-                            .addOnFailureListener { e ->
-                                Log.w("Firebase", "Error adding document", e)
-                            }
-
-
-                        var cartCount:Int = 0
-                        var caID:String = ""
-                        val collection1 = db.collection("cart")
-                        val countQuery1 = collection1.count()
-                        countQuery1.get(AggregateSource.SERVER).addOnCompleteListener { tasks ->
-                            if (tasks.isSuccessful) {
-                                val snapshot1 = tasks.result
-                                cartCount = snapshot1.count.toInt()
-                                cartCount += 1
-
-                                if(cartCount < 10){
-                                    caID = "K000$cartCount"
-                                } else if(cartCount < 100){
-                                    caID = "K00$cartCount"
-                                }else if(cartCount < 1000){
-                                    caID = "K0$cartCount"
-                                }else if(cartCount < 10000){
-                                    caID = "K$cartCount"
-                                }
-
-                                val cart = hashMapOf(
-                                    "cartID" to caID,
-                                    "customerID" to strinID,
-                                )
+                                        )
 
 
 
 
-                                db.collection("cart")
-                                    .document(caID)
-                                    .set(cart)
-                                    .addOnSuccessListener {
+                                    db.collection("user")
+                                        .document(email)
+                                        .set(user)
+                                        .addOnSuccessListener { documentReference ->
+                                            Log.d(
+                                                "Firebase",
+                                                "DocumentSnapshot added with ID: ${documentReference.toString()}"
+                                            )
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.w("Firebase", "Error adding document", e)
+                                        }
+
+
+                                    var cartCount:Int = 0
+                                    var caID:String = ""
+                                    val collection1 = db.collection("cart")
+                                    val countQuery1 = collection1.count()
+                                    countQuery1.get(AggregateSource.SERVER).addOnCompleteListener { tasks ->
+                                        if (tasks.isSuccessful) {
+                                            val snapshot1 = tasks.result
+                                            cartCount = snapshot1.count.toInt()
+                                            cartCount += 1
+
+                                            if(cartCount < 10){
+                                                caID = "K000$cartCount"
+                                            } else if(cartCount < 100){
+                                                caID = "K00$cartCount"
+                                            }else if(cartCount < 1000){
+                                                caID = "K0$cartCount"
+                                            }else if(cartCount < 10000){
+                                                caID = "K$cartCount"
+                                            }
+
+                                            val cart = hashMapOf(
+                                                "cartID" to caID,
+                                                "customerID" to strinID,
+                                            )
+
+
+
+
+                                            db.collection("cart")
+                                                .document(caID)
+                                                .set(cart)
+                                                .addOnSuccessListener {
+                                                }
+
+                                        }
                                     }
 
-                            }
-                        }
 
+                                    var walletCount:Int = 0
+                                    var wallID:String = ""
+                                    val collection2 = db.collection("ewallet")
+                                    val countQuery2 = collection2.count()
+                                    countQuery2.get(AggregateSource.SERVER).addOnCompleteListener { taskss ->
+                                        if (taskss.isSuccessful) {
+                                            val snapshot2 = taskss.result
+                                            walletCount = snapshot2.count.toInt()
+                                            walletCount += 1
 
-                        var walletCount:Int = 0
-                        var wallID:String = ""
-                        val collection2 = db.collection("ewallet")
-                        val countQuery2 = collection2.count()
-                        countQuery2.get(AggregateSource.SERVER).addOnCompleteListener { taskss ->
-                            if (taskss.isSuccessful) {
-                                val snapshot2 = taskss.result
-                                walletCount = snapshot2.count.toInt()
-                                walletCount += 1
+                                            if(walletCount < 10){
+                                                wallID = "W000$walletCount"
+                                            } else if(walletCount < 100){
+                                                wallID = "W00$walletCount"
+                                            }else if(walletCount < 1000){
+                                                wallID = "W0$walletCount"
+                                            }else if(walletCount < 10000){
+                                                wallID = "W$walletCount"
+                                            }
 
-                                if(walletCount < 10){
-                                    wallID = "W000$walletCount"
-                                } else if(walletCount < 100){
-                                    wallID = "W00$walletCount"
-                                }else if(walletCount < 1000){
-                                    wallID = "W0$walletCount"
-                                }else if(walletCount < 10000){
-                                    wallID = "W$walletCount"
-                                }
+                                            val wallet = hashMapOf(
+                                                "balance" to "0",
+                                                "pinNo" to null,
+                                                "status" to "Inactive",
+                                                "userID" to strinID,
+                                                "walletID" to wallID,
 
-                                val wallet = hashMapOf(
-                                    "balance" to "0",
-                                    "pinNo" to null,
-                                    "status" to "Inactive",
-                                    "userID" to strinID,
-                                    "walletID" to wallID,
-
-                                )
+                                                )
 
 
 
 
-                                db.collection("ewallet")
-                                    .document(wallID)
-                                    .set(wallet)
-                                    .addOnSuccessListener {
+                                            db.collection("ewallet")
+                                                .document(wallID)
+                                                .set(wallet)
+                                                .addOnSuccessListener {
+                                                }
+
+                                        }
                                     }
 
+
+
+                                    val intent = Intent(this, Login::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                } else {
+                                    try {
+                                        Log.e("Register error", task.exception.toString())
+                                        throw task.exception!!
+                                    } catch (e: FirebaseAuthWeakPasswordException) {
+                                        throw e
+                                    } catch (e: FirebaseAuthInvalidCredentialsException) {
+                                        throw e
+                                    } catch (e: FirebaseAuthUserCollisionException) {
+                                        throw e
+                                    } catch (e: FirebaseException) {
+
+                                    }
+                                    Toast.makeText(this, "Singed Up Failed!", Toast.LENGTH_SHORT).show()
+                                }
                             }
-                        }
-
-
-
-                        val intent = Intent(this, Login::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        try {
-                            Log.e("Register error", task.exception.toString())
-                            throw task.exception!!
-                        } catch (e: FirebaseAuthWeakPasswordException) {
-                            throw e
-                        } catch (e: FirebaseAuthInvalidCredentialsException) {
-                            throw e
-                        } catch (e: FirebaseAuthUserCollisionException) {
-                            throw e
-                        } catch (e: FirebaseException) {
-
-                        }
-                        Toast.makeText(this, "Singed Up Failed!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                }else{
+                    }else{
                         Toast.makeText(applicationContext,"This Email is taken",Toast.LENGTH_LONG).show()
                     }
 
-            }
+                }
         }
 
     }

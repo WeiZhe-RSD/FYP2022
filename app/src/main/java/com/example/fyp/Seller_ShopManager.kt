@@ -20,7 +20,7 @@ class Seller_ShopManager : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
-    private var stallNameReassigning : String = ""//for reassigning purposes
+    private var stallNameReassigning: String = ""//for reassigning purposes
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,12 +30,14 @@ class Seller_ShopManager : AppCompatActivity() {
         val btnManageFoodItems = findViewById<Button>(R.id.btnManageFI)
         val btnManageFoodStall = findViewById<Button>(R.id.btnManageOH)
         val btnManageFoodOrders = findViewById<Button>(R.id.btnManageOD)
+        val btnViewDailyReport = findViewById<Button>(R.id.btnViewDailyReport)
+        val btnViewMonthlyReport = findViewById<Button>(R.id.btnViewMonthlyReport)
         val tvShopName = findViewById<TextView>(R.id.tvShopName)
 
         ///////////////////////////////////////////////////////////   get current user
-        val userObj  = intent.getParcelableExtra<User>("userObj")
+        val userObj = intent.getParcelableExtra<User>("userObj")
 
-        if(userObj!= null) {
+        if (userObj != null) {
             Log.i("inherit Success", userObj.email.toString())
         }
 
@@ -43,7 +45,7 @@ class Seller_ShopManager : AppCompatActivity() {
 
 
         ///////////////////////////////////////////////////////////// check this user own which food stall
-        var foodstallObj: FoodStall ?= null
+        var foodstallObj: FoodStall? = null
 
         db = FirebaseFirestore.getInstance()
         if (userObj != null) {
@@ -55,9 +57,9 @@ class Seller_ShopManager : AppCompatActivity() {
                         foodstallObj = document.toObject(FoodStall::class.java)
                     }
                     /////////////////////  this foodstallObj only exist here,
-                    // can try if u can get the data outside this addOnSuccessListioner
+                    // can try if u can get the data outside this addOnSuccessListener
                     tvShopName.text = foodstallObj!!.name
-                    stallNameReassigning = foodstallObj!!.name.toString();
+                    stallNameReassigning = foodstallObj!!.name.toString()
                     /////////////////////
                 }
                 .addOnFailureListener { exception ->
@@ -65,22 +67,34 @@ class Seller_ShopManager : AppCompatActivity() {
                 }
         }
 
+        btnManageFoodItems.setOnClickListener {
+            val intent = Intent(this@Seller_ShopManager, Seller_ManageMenuItems::class.java)
+            intent.putExtra("foodStall", stallNameReassigning)
+            Log.i("Name for FoodStall", stallNameReassigning)
+            startActivity(intent)
+        }
 
-
-        btnManageFoodStall.setOnClickListener(){
+        btnManageFoodStall.setOnClickListener {
             val intent = Intent(this@Seller_ShopManager, Seller_ManageFoodStall::class.java)
             intent.putExtra("foodStall", stallNameReassigning)
             startActivity(intent)
         }
 
-        btnManageFoodItems.setOnClickListener(){
-            val intent = Intent(this@Seller_ShopManager, Seller_ManageMenuItems::class.java)
+        btnManageFoodOrders.setOnClickListener {
+            val intent = Intent(this@Seller_ShopManager, Seller_ManageOrderDetails::class.java)
             intent.putExtra("foodStall", stallNameReassigning)
             startActivity(intent)
         }
 
-        btnManageFoodOrders.setOnClickListener() {
-            val intent = Intent(this@Seller_ShopManager, Seller_ManageOrderDetails::class.java)
+        btnViewDailyReport.setOnClickListener {
+            val intent = Intent(this@Seller_ShopManager, Seller_DailyReport::class.java)
+            intent.putExtra("foodStall", stallNameReassigning)
+            startActivity(intent)
+        }
+
+        btnViewMonthlyReport.setOnClickListener {
+            val intent = Intent(this@Seller_ShopManager, Seller_MonthlyReport::class.java)
+            intent.putExtra("foodStall", stallNameReassigning)
             startActivity(intent)
         }
 

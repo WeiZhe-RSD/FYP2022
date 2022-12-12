@@ -17,70 +17,7 @@
         android:theme="@style/Theme.FYP"
         tools:targetApi="31">
         <activity
-            android:name=".User_EatTogether_InviteMe"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".User_EatTogether_Invitation"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".splash_CashPay"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".User_AcceptInvite"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".User_EatTogether"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".User_SetPin"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".User_OrderHistory"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".User_walletTopup"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".User_FoodstallFeedback"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".User_SubmitFeedback"
+            android:name=".Seller_ManageSpecificOrder"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -166,7 +103,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAuVW4gQ9LWm2XfTlYEpafUEcK6ORzSYSg" />
+            android:value="AIzaSyC1F1goMo7npkrkgf9YdfSFNpXMpsJb1s8" />
 
         <activity
             android:name=".Map"

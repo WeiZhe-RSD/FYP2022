@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -19,8 +20,11 @@ import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 
 class MenuItemAdapter(private val foodList: ArrayList<Food>) : RecyclerView.Adapter<MenuItemAdapter.MenuItemViewHolder>(){
-    private var db = FirebaseFirestore.getInstance();
+    private var db = FirebaseFirestore.getInstance()
     var onItemClick : ((Food) -> Unit)? = null
+
+    private var foodName: String? = ""
+    private var foodNameReassigned: String? = ""
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuItemViewHolder {
@@ -46,8 +50,9 @@ class MenuItemAdapter(private val foodList: ArrayList<Food>) : RecyclerView.Adap
             holder.imgItem.setImageBitmap(bitmap)
         }
 
-
         holder.tvItemName.text = food.name
+
+        foodNameReassigned = foodName
 
         holder.itemView.findViewById<Button>(R.id.btnDelete).setOnClickListener {
             //Toast.makeText(it.context, """ ${food.name} """, Toast.LENGTH_SHORT).show()
@@ -61,21 +66,32 @@ class MenuItemAdapter(private val foodList: ArrayList<Food>) : RecyclerView.Adap
                 .addOnSuccessListener {
                     Toast.makeText(holder.itemView.context, "This " + food.name.toString() + " has been deleted successfully!",Toast.LENGTH_SHORT).show()
                 }
-                .addOnFailureListener { e -> Log.w(TAG, "Error deleting food", e) }
+                .addOnFailureListener {
+                        e -> Log.w(TAG, "Error deleting food", e)
+                }
 
+            /*db.collection("food").document(foodName.toString())
+                .update("status", "Inactive")
+                .addOnSuccessListener {
+                    Toast.makeText(holder.itemView.context, "This " + food.name.toString() + " has been deleted successfully!",Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                        e -> Log.w(TAG, "Error deleting food", e)
+                }*/
         }
 
         holder.itemView.findViewById<Button>(R.id.btnEdit).setOnClickListener {
-            val intent = Intent(it.context, Seller_EditItems::class.java)
-            intent.putExtra("foodName", food.name.toString())
-            it.context.startActivity(intent);
+            //val intent = Intent(it.context, Seller_EditItems::class.java)
+            //intent.putExtra("foodName", food.name.toString())
+            onItemClick?.invoke(food)
+            //it.context.startActivity(intent)
         }
-
     }
 
 
-    public class MenuItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class MenuItemViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         var imgItem = itemView.findViewById<ImageView>(R.id.imgItem)
         var tvItemName = itemView.findViewById<TextView>(R.id.tvItemName)
     }
 }
+

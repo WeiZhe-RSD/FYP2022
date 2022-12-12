@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Seller_ManageOrderDetails">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tvShopName2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="Daily Report"
+                android:textAlignment="center"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                >
+
+
+                <TableLayout
+                    android:id="@+id/reportTableLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TableRow
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#A3C585">
+
+                        <TextView
+                            android:id="@+id/colFoodName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="6"
+                            android:gravity="start"
+                            android:padding="10sp"
+                            android:text="Food Name"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/colDate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:gravity="start"
+                            android:padding="10sp"
+                            android:text="Date"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="start"
+                            android:padding="10sp"
+                            android:text="Qty"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:gravity="start"
+                            android:padding="10sp"
+                            android:text="Subtotal"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+
+                    </TableRow>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvReport"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TableRow
+                        android:id="@+id/trTotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        >
+
+                        <TextView
+                            android:id="@+id/colTotal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="12"
+                            android:gravity="start"
+                            android:padding="10sp"
+                            android:text="Total Price"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/colTotalPrice"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:gravity="start"
+                            android:padding="10sp"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/trNoRecord"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        >
+
+                        <TextView
+                            android:id="@+id/tvNoRecod"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="16"
+                            android:gravity="center_horizontal"
+                            android:padding="10sp"
+                            android:text="No Record"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </TableRow>
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@android:color/darker_gray"/>
+
+                </TableLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

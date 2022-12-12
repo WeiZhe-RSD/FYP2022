@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Seller_ManageSpecificOrder">
+
+    <TextView
+        android:id="@+id/specificOrderIdNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/orderListRecyclerView"
+        android:layout_width="338dp"
+        android:layout_height="412dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="104dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specificOrderIdNo" />
+
+    <Button
+        android:id="@+id/completeOrderBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="16dp"
+        android:text="Complete Order"
+        app:layout_constraintStart_toStartOf="@+id/orderListRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/orderListRecyclerView" />
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="64dp"
+        android:text="Items"
+        app:layout_constraintStart_toStartOf="@+id/orderListRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/specificOrderIdNo" />
+
+    <TextView
+        android:id="@+id/textView36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="64dp"
+        android:text="Quantity"
+        app:layout_constraintStart_toEndOf="@+id/textView34"
+        app:layout_constraintTop_toBottomOf="@+id/specificOrderIdNo" />
+</androidx.constraintlayout.widget.ConstraintLayout>

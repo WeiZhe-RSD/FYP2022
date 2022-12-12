@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         val user = auth.currentUser
-         db = Firebase.firestore
+        db = Firebase.firestore
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -306,16 +306,16 @@ class MainActivity : AppCompatActivity() {
                         }*/
 
 
-                            val intent = Intent(this, Seller_ShopManager::class.java)
-                            intent.putExtra("userObj", userObj)
-                            startActivity(intent)
+                        val intent = Intent(this, Seller_ShopManager::class.java)
+                        intent.putExtra("userObj", userObj)
+                        startActivity(intent)
 
 
-                        }
                     }
                 }
             }
         }
+    }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

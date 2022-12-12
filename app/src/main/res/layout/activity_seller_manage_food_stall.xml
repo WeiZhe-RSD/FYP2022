@@ -160,6 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="56dp"
+                android:backgroundTint="#FFC107"
                 android:text="Opening"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -169,6 +170,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
+                android:backgroundTint="#FFC107"
                 android:text="Closing"
                 app:layout_constraintEnd_toEndOf="@+id/btnOpening"
                 app:layout_constraintStart_toStartOf="@+id/btnOpening"

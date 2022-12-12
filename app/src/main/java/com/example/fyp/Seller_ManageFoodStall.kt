@@ -47,9 +47,6 @@ class Seller_ManageFoodStall : AppCompatActivity(), TimePickerDialog.OnTimeSetLi
     private lateinit var openingHoursButton : Button
     private lateinit var closingHoursButton : Button
 
-
-
-
     private var foodStall : String? =""
     private var foodStallReassigned : String? =""
 
@@ -157,7 +154,7 @@ class Seller_ManageFoodStall : AppCompatActivity(), TimePickerDialog.OnTimeSetLi
 
 
         if(selectedHour.length == 1){
-            selectedHour = "0${selectedHour.toString()}"
+            selectedHour = "0$selectedHour"
         }
         if(selectedMinute.length == 1){
             selectedMinute = "0$selectedMinute"

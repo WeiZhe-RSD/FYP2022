@@ -64,7 +64,7 @@ class User_Foodstall : AppCompatActivity() {
                 startActivity(intent)
             }
 
-            btnCafeteriaMap.setOnClickListener(){
+            btnCafeteriaMap.setOnClickListener {
                 val intent = Intent(this, com.example.fyp.Map::class.java)
                 intent.putExtra("cafeteria", cafeteria)
 

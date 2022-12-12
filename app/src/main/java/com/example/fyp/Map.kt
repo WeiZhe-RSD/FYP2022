@@ -60,7 +60,7 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
         map.onSaveInstanceState(outState)
     }
     override fun onMapReady(p0: GoogleMap) {
-        mMap = p0;
+        mMap = p0
         mMap.uiSettings.isZoomControlsEnabled = true
         val location = LatLng(lat,lng)
         mMap.addMarker(

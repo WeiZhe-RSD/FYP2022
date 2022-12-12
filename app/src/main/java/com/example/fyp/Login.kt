@@ -21,11 +21,11 @@ class Login : AppCompatActivity() {
         val btnRegister = findViewById<Button>(R.id.btnRegister)
 
 
-        btnLogin.setOnClickListener(){
+        btnLogin.setOnClickListener {
             login()
         }
 
-        btnRegister.setOnClickListener() {
+        btnRegister.setOnClickListener {
             val intent = Intent(this, Register::class.java)
 
             startActivity(intent)
