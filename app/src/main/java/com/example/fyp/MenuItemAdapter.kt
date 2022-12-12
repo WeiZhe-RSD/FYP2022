@@ -62,22 +62,22 @@ class MenuItemAdapter(private val foodList: ArrayList<Food>) : RecyclerView.Adap
             notifyItemRangeChanged(position, foodList.size)
             notifyDataSetChanged()
 
-            /*db.collection("food").document(food.name.toString()).delete()
+            db.collection("food").document(food.name.toString()).delete()
                 .addOnSuccessListener {
                     Toast.makeText(holder.itemView.context, "This " + food.name.toString() + " has been deleted successfully!",Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener {
                         e -> Log.w(TAG, "Error deleting food", e)
-                }*/
+                }
 
-            db.collection("food").document(foodName.toString())
+            /*db.collection("food").document(foodName.toString())
                 .update("status", "Inactive")
                 .addOnSuccessListener {
                     Toast.makeText(holder.itemView.context, "This " + food.name.toString() + " has been deleted successfully!",Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener {
                         e -> Log.w(TAG, "Error deleting food", e)
-                }
+                }*/
         }
 
         holder.itemView.findViewById<Button>(R.id.btnEdit).setOnClickListener {

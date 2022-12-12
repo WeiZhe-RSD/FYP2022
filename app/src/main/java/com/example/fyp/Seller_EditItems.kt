@@ -123,7 +123,8 @@ class Seller_EditItems : AppCompatActivity() {
                 "image" to "$foodImageFromDB",
                 "name" to editItemNameField.text.trim().toString(),
                 "price" to editPrice.text.trim().toString(),
-                "status" to "Active"
+                "status" to "Active",
+                "type" to foodstall.type
             )
             db.collection("food")
                 .document(editItemNameField.text.toString()).set(food)
