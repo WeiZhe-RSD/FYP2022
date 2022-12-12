@@ -213,7 +213,7 @@
                             android:id="@+id/imgItem4"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
+                            app:srcCompat="@drawable/reporticon" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -241,7 +241,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:backgroundTint="#FF9800"
-                                    android:text="Daily Report" />
+                                    android:text="Daily" />
 
                                 <Button
                                     android:id="@+id/btnViewMonthlyReport"
@@ -250,7 +250,7 @@
                                     android:layout_marginLeft="20px"
                                     android:layout_weight="1"
                                     android:backgroundTint="#FF9800"
-                                    android:text="Monthly Report" />
+                                    android:text="Monthly" />
 
                             </LinearLayout>
                         </LinearLayout>
