@@ -176,21 +176,21 @@ class User_EatTogether : AppCompatActivity() {
                                                 }
 
                                                 var resultVenue = cafeterianame.get(spinner2.selectedItemPosition)
-
-                                                if(transSize != 1){
+var ab:Boolean = true
+                                                if(transSize > 1){
                                                     db = FirebaseFirestore.getInstance()
                                                     db.collection("eatTogether")
-                                                        .whereEqualTo("status", "Active")
+                                                        .whereEqualTo("status", "Pending")
                                                         .get()
                                                         .addOnSuccessListener { documents ->
 
                                                             for (document in documents) {
                                                                 eatTogObj =
                                                                     document.toObject(EatTogehter::class.java)
-
+                                                                Log.i("omggggggggggggggg", "kknnnnnnnn")
                                                                 if (userObj.id == eatTogObj.customerID &&
                                                                     it.id == eatTogObj.invitedID &&
-                                                                    "${btnDatePicker.text.toString()} $resultTime" == eatTogObj.dateMeet &&
+                                                                    "${btnDatePicker.text.trim()} $resultTime" == eatTogObj.dateMeet &&
                                                                     resultVenue == eatTogObj.venue
                                                                 ) {
                                                                     Toast.makeText(
@@ -198,42 +198,45 @@ class User_EatTogether : AppCompatActivity() {
                                                                         "Invitation Already Exist",
                                                                         Toast.LENGTH_SHORT
                                                                     ).show()
-                                                                    val intent = Intent(
-                                                                        this, MainActivity::class.java
-                                                                    )
-                                                                    startActivity(intent)
+                                                                    ab = false
 
-                                                                }else {
-                                                                    val sdf =
-                                                                        SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
-
-                                                                    val currentDate =
-                                                                        sdf.format(Date())
-
-                                                                    val orderDetail = hashMapOf(
-                                                                        "eatTogehterID" to tranID,
-                                                                        "dateCreated" to currentDate.toString(),
-                                                                        "status" to "Invited",
-                                                                        "customerID" to userObj.id,
-                                                                        "invitedID" to it.id,
-                                                                        "dateMeet" to "${btnDatePicker.text.toString()} $resultTime",
-                                                                        "venue" to resultVenue,
-                                                                    )
-
-
-                                                                    db.collection("eatTogether")
-                                                                        .document(tranID)
-                                                                        .set(orderDetail)
-                                                                        .addOnSuccessListener {
-                                                                            Toast.makeText(
-                                                                                this,
-                                                                                "Sent Successfully",
-                                                                                Toast.LENGTH_SHORT
-                                                                            )
-                                                                                .show()
-                                                                        }
                                                                 }
+
                                                             }
+
+                                                            if(ab){
+                                                                val sdf =
+                                                                    SimpleDateFormat("dd-MM-yyyy hh:mm:ss")
+
+                                                                val currentDate =
+                                                                    sdf.format(Date())
+
+                                                                val orderDetail = hashMapOf(
+                                                                    "eatTogehterID" to tranID,
+                                                                    "dateCreated" to currentDate.toString(),
+                                                                    "status" to "Pending",
+                                                                    "customerID" to userObj.id,
+                                                                    "invitedID" to it.id,
+                                                                    "dateMeet" to "${btnDatePicker.text.toString()} $resultTime",
+                                                                    "venue" to resultVenue,
+                                                                )
+
+
+                                                                db.collection("eatTogether")
+                                                                    .document(tranID)
+                                                                    .set(orderDetail)
+                                                                    .addOnSuccessListener {
+                                                                        Toast.makeText(
+                                                                            this,
+                                                                            "Sent Successfully",
+                                                                            Toast.LENGTH_SHORT
+                                                                        )
+                                                                            .show()
+                                                                    }
+                                                            }
+
+
+
                                                         }
                                                 }else{
 
@@ -244,7 +247,7 @@ class User_EatTogether : AppCompatActivity() {
                                                     val orderDetail = hashMapOf(
                                                         "eatTogehterID" to tranID,
                                                         "dateCreated" to currentDate.toString(),
-                                                        "status" to "Invited",
+                                                        "status" to "Pending",
                                                         "customerID" to userObj.id,
                                                         "invitedID" to it.id,
                                                         "dateMeet" to "${btnDatePicker.text.toString()} $resultTime",

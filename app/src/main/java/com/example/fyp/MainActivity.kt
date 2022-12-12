@@ -252,6 +252,18 @@ class MainActivity : AppCompatActivity() {
                                         .putExtra("userObj", userObj)
                                     startActivity(intent)
                                 }
+                                R.id.nav_viewInvite -> {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Clicked EatTogether",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(
+                                        this, User_EatTogether_Invitation::class.java
+                                    )
+                                        .putExtra("userObj", userObj)
+                                    startActivity(intent)
+                                }
 
                                 R.id.nav_logout -> {
                                     Toast.makeText(
@@ -306,9 +318,11 @@ class MainActivity : AppCompatActivity() {
                         }*/
 
 
+
                         val intent = Intent(this, Seller_ShopManager::class.java)
                         intent.putExtra("userObj", userObj)
                         startActivity(intent)
+                        finish()
 
 
                     }

@@ -1,9 +1,11 @@
 package com.example.fyp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fyp.Entity.CartDetail
@@ -23,6 +25,14 @@ class Seller_ManageOrderDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seller_manage_order_details)
+
+        val btnPendingPay = findViewById<Button>(R.id.btnPendingPay)
+
+        btnPendingPay.setOnClickListener(){
+            val intent = Intent(this, Seller_ManagePendingPay::class.java)
+            intent.putExtra("stallname", userObj)
+            startActivity(intent)
+        }
 
         getCFoodStallID()
 
