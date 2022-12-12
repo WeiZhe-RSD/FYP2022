@@ -47,14 +47,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btnMap"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:text="Map" />
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="20dp"
+                        />
 
                     <Button
                         android:id="@+id/btnSelect"

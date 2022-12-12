@@ -73,7 +73,11 @@ class User_Checkout : AppCompatActivity() {
                     }
 
                     if(result == "Cash"){
-
+                        val intent = Intent(this, splash_CashPay::class.java)
+                        intent.putExtra("sub", sub)
+                        intent.putExtra("stallname", tvCheckOutCafe.text.toString())
+                        startActivity(intent)
+                        finish()
                     }else if (result == "Ewallet"){
 
                         db = FirebaseFirestore.getInstance()
@@ -87,7 +91,13 @@ class User_Checkout : AppCompatActivity() {
                                     walletObj= documentsssx.toObject(Ewallet::class.java)
                                 }
 
-                                if(walletObj.balance!! > sub){
+                                if(walletObj.status == "Inactive"){
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "You have not activate your ewallet yet",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }else if(walletObj.balance.toString().toDouble()!! > sub){
                                     val intent = Intent(this, User_CheckPin::class.java)
                                     intent.putExtra("sub", sub)
                                     intent.putExtra("stallname", tvCheckOutCafe.text.toString())
@@ -136,7 +146,6 @@ class User_Checkout : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     cartObj = document.toObject(Cart::class.java)
-                    Log.i("madafakaaaaaaaaaaaaaaa", cartObj.toString())
                 }
 
 
@@ -146,7 +155,6 @@ class User_Checkout : AppCompatActivity() {
                     .whereEqualTo("status", "Active")
                     .get()
                     .addOnSuccessListener { documentss ->
-                        Log.i("kongannnnnnnnnnnnnnnnnn", userObj.toString())
 
                         for (documentsss in documentss) {
                             cartArrayList.add(documentsss.toObject(CartDetail::class.java))

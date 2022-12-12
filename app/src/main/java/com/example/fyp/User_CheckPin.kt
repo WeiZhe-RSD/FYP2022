@@ -1,5 +1,6 @@
 package com.example.fyp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -23,6 +24,7 @@ class User_CheckPin : AppCompatActivity() {
     private lateinit var walletObj: Ewallet
     private lateinit var cartObj: Cart
     private lateinit var cartDetailObj: CartDetail
+    private var counter:Int = 3
 
 
 
@@ -59,19 +61,16 @@ var detailSize:Int = 0
             userRef.get().addOnSuccessListener {
                 if (it != null) {
                     userObj = it.toObject(User::class.java)!!
-                    Log.i("kongannnnnnnnnnnnnnnnnn", userObj.toString())
 
                     db = FirebaseFirestore.getInstance()
                     db.collection("ewallet")
                         .whereEqualTo("userID", userObj.id)
                         .get()
                         .addOnSuccessListener { documents ->
-                            Log.i("kongannnnnnnnnnnnnnnnnn", userObj.toString())
 
                             for (document in documents) {
                                 walletObj = document.toObject(Ewallet::class.java)
                             }
-                            Log.i("waletttttttttttttt", walletObj.toString())
                             if(digit1.text.toString() == walletObj.pinNo){
 
                                 val collection = db.collection("order")
@@ -164,6 +163,8 @@ var detailSize:Int = 0
                                             "userID" to userObj.id,
                                             "paymentID" to payid,
                                             "ttlPrice" to sub.toString(),
+                                            "foodstallID" to stallname,
+                                            "orderDetailID" to detailid,
                                         )
 
 
@@ -227,7 +228,8 @@ var detailSize:Int = 0
                                                                             val washingtonRef = db.collection("cartDetail").document(cartDetailObj.detailID.toString())
                                                                             washingtonRef
                                                                                 .update("status", "Inactive")
-
+                                                                            washingtonRef
+                                                                                .update("orderID", id)
 
                                                                         }
                                                                         Log.i("kannnnnnnnnnnnnnnnn", map.toString())
@@ -238,7 +240,7 @@ var detailSize:Int = 0
                                                                             "orderDetailID" to detailid,
                                                                             "OrderContent" to map,
                                                                             "status" to "Pending",
-                                                                            "price" to cartDetailObj.subtotal.toString(),
+                                                                            "price" to sub.toString(),
                                                                         )
 
 
@@ -264,14 +266,15 @@ var detailSize:Int = 0
 
 
                                                                         db.collection("ewalletTransaction")
-                                                                            .document(tranID).set(transDetail)
+                                                                            .document(transSize.toString()).set(transDetail)
                                                                             .addOnSuccessListener {
 
                                                                             }
 
+                                                                        var balen = walletObj.balance.toString().toDouble()!! - sub
                                                                         val washingtonRef2 = db.collection("ewallet").document(walletObj.walletID.toString())
                                                                         washingtonRef2
-                                                                            .update("balance", walletObj.balance!! - sub)
+                                                                            .update("balance", balen.toString())
 
 
                                                                         Toast.makeText(
@@ -279,6 +282,11 @@ var detailSize:Int = 0
                                                                             "Everything Done",
                                                                             Toast.LENGTH_SHORT
                                                                         ).show()
+
+                                                                        val intent = Intent(this, user_OrderComplete::class.java)
+                                                                        intent.putExtra("order", id)
+                                                                        startActivity(intent)
+                                                                        finish()
 
 
                                                                     }
@@ -304,7 +312,21 @@ var detailSize:Int = 0
 
 
                             }else{
-                                Log.i("wronggggggggggggggggggg", userObj.toString())
+                                counter-=1
+
+                                if(counter == 0){
+                                    val intent = Intent(
+                                        this, MainActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                    finish()
+                                }else{
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "$counter attempts left",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
 
 

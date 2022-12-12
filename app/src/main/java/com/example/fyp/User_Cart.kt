@@ -68,6 +68,7 @@ class User_Cart : AppCompatActivity() {
                 btnCheckOut.setOnClickListener(){
                     val intent = Intent(this, User_Checkout::class.java)
                     startActivity(intent)
+                    finish()
                 }
 
             }
@@ -88,7 +89,6 @@ class User_Cart : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     cartObj = document.toObject(Cart::class.java)
-                    Log.i("madafakaaaaaaaaaaaaaaa", cartObj.toString())
                 }
 
 
@@ -98,7 +98,6 @@ class User_Cart : AppCompatActivity() {
                     .whereEqualTo("status", "Active")
                     .get()
                     .addOnSuccessListener { documentss ->
-                        Log.i("kongannnnnnnnnnnnnnnnnn", userObj.toString())
 
                         for (documentsss in documentss) {
                             cartArrayList.add(documentsss.toObject(CartDetail::class.java))
@@ -112,7 +111,7 @@ class User_Cart : AppCompatActivity() {
                             db.collection("food")
                                 .whereEqualTo(
                                     "foodID",
-                                    cartArrayList.get(cartArrayList.size - 1).foodID
+                                    cartArrayList.get(cartArrayList.size - 1).foodID.toString()
                                 )
                                 .get()
                                 .addOnSuccessListener { documentxx ->
@@ -120,7 +119,9 @@ class User_Cart : AppCompatActivity() {
                                     for (documentxxx in documentxx) {
                                         a = documentxxx.toObject(Food::class.java)
                                     }
-                                    tvCartCafe.text = a.foodstallID
+                                        tvCartCafe.text = a.foodstallID
+
+
                                 }
                             val df = DecimalFormat("#.##")
                             df.roundingMode = RoundingMode.DOWN

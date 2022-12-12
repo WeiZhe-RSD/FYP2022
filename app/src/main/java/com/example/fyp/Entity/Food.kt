@@ -4,44 +4,46 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Food(
+    var foodID:String?=null,
     var name:String?= null,
     var description:String?= null,
     var image:String?= null,
 
     var type:String?= null,
-    var calories:Int?= null,
+    var calories:String?= null,
     var status: String?= null,
     var foodstallID: String?= null,
-    var foodID:String?=null,
-    var price:Double?= null,
+
+    var price:String?= null,
 
     ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
 
         parcel.readString(),
-        parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
-        parcel.readDouble(),
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(foodID)
         parcel.writeString(name)
         parcel.writeString(description)
         parcel.writeString(image)
 
         parcel.writeString(type)
 
-        parcel.writeValue(calories)
+        parcel.writeString(calories)
         parcel.writeString(status)
         parcel.writeString(foodstallID)
-        parcel.writeString(foodID)
-        parcel.writeValue(price)
+
+        parcel.writeString(price)
     }
 
     override fun describeContents(): Int {

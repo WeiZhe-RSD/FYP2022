@@ -29,7 +29,6 @@ class Login : AppCompatActivity() {
             val intent = Intent(this, Register::class.java)
 
             startActivity(intent)
-            finish()
         }
 
     }
@@ -38,27 +37,31 @@ class Login : AppCompatActivity() {
         val tfLoginEmail = findViewById<TextView>(R.id.tfLoginEmail)
         val tfLoginPassword = findViewById<TextView>(R.id.tfLoginPassword)
 
-        val email = tfLoginEmail.text.toString()
-        val password = tfLoginPassword.text.toString()
 
 
-        var auth: FirebaseAuth = FirebaseAuth.getInstance()
+        if(tfLoginEmail.text.isNotEmpty() && tfLoginPassword.text.isNotEmpty()) {
 
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Log.i("Login Success", task.result.toString())
-                    Toast.makeText(this, "Successfully LoggedIn", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Log.e("Login error", task.exception.toString())
-                    Toast.makeText(this, "Log In failed", Toast.LENGTH_LONG).show()
 
+            val email = tfLoginEmail.text.toString()
+            val password = tfLoginPassword.text.toString()
+
+            var auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Log.i("Login Success", task.result.toString())
+                        Toast.makeText(this, "Successfully LoggedIn", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Log.e("Login error", task.exception.toString())
+                        Toast.makeText(this, "Incorrect username/password. Please try again", Toast.LENGTH_LONG).show()
+
+                    }
                 }
-            }
-
+        }
 
     }
 }

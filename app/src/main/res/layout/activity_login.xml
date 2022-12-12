@@ -68,16 +68,6 @@
         app:layout_constraintEnd_toEndOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <EditText
-        android:id="@+id/tfLoginPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="@+id/textView13"
-        app:layout_constraintStart_toStartOf="@+id/tfLoginEmail"
-        app:layout_constraintTop_toTopOf="@+id/textView13" />
-
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
@@ -96,4 +86,15 @@
         android:text="Login"
         app:layout_constraintStart_toEndOf="@+id/btnRegister"
         app:layout_constraintTop_toTopOf="@+id/btnRegister" />
+
+    <EditText
+        android:id="@+id/tfLoginPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+        app:layout_constraintStart_toStartOf="@+id/tfLoginEmail"
+        app:layout_constraintTop_toTopOf="@+id/textView13" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

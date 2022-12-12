@@ -16,9 +16,9 @@
         app:srcCompat="@drawable/sky" />
 
     <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/imgProfEdit"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginBottom="512dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -88,16 +88,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView22" />
 
+
     <EditText
         android:id="@+id/tvEditContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/textView27"
-        app:layout_constraintStart_toStartOf="@+id/datePicker"
-        app:layout_constraintTop_toTopOf="@+id/textView27" />
-
+        app:layout_constraintStart_toEndOf="@+id/textView41"
+        app:layout_constraintTop_toTopOf="@+id/textView27"
+        />
 
     <RadioGroup
         android:id="@+id/rgProfileGender"
@@ -162,6 +164,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView25"
         app:layout_constraintStart_toStartOf="@+id/rgProfileGender"
         app:layout_constraintTop_toTopOf="@+id/textView25" />
+
+    <TextView
+        android:id="@+id/textView41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="31dp"
+        android:text="+60"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/textView27"
+        app:layout_constraintTop_toTopOf="@+id/textView27" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

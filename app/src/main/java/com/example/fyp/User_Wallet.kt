@@ -38,50 +38,60 @@ class User_Wallet : AppCompatActivity() {
         userRef.get().addOnSuccessListener {
             if (it != null) {
                 userObj = it.toObject(User::class.java)!!
-                Log.i("kongannnnnnnnnnnnnnnnnn", userObj.toString())
 
                 db = FirebaseFirestore.getInstance()
                 db.collection("ewallet")
                     .whereEqualTo("userID", userObj.id)
                     .get()
                     .addOnSuccessListener { documents->
-                        Log.i("kongannnnnnnnnnnnnnnnnn", userObj.toString())
 
                         for (document in documents) {
                             walletObj = document.toObject(Ewallet::class.java)
                         }
-                        Log.i("madafakaaaaaaaaaaaaaaa", walletObj.toString())
 
-                        val tvBalance = findViewById<TextView>(R.id.tvBalance)
-
-                        tvBalance.text = walletObj.balance.toString()
-
-
-                        val btnGenQR = findViewById<Button>(R.id.btnGenQR)
-                        val btnTopup = findViewById<Button>(R.id.btnTopup)
-
-                        btnGenQR.setOnClickListener() {
-                            val intent = Intent(
-                                this, User_WalletQR::class.java
-                            )
-                            /*.putExtra("userObj", userObj)*/
+                        if(walletObj.pinNo==null){
+                            val intent = Intent(this, User_SetPin::class.java)
+                            intent.putExtra("wallet", walletObj)
                             startActivity(intent)
+                            finish()
+                        }else{
+                            val tvBalance = findViewById<TextView>(R.id.tvBalance)
+
+                            tvBalance.text = "RM " + walletObj.balance.toString()
+
+
+                            val btnGenQR = findViewById<Button>(R.id.btnGenQR)
+                            val btnTopup = findViewById<Button>(R.id.btnTopup)
+
+                            btnGenQR.setOnClickListener() {
+                                val intent = Intent(
+                                    this, User_WalletQR::class.java
+                                )
+                                /*.putExtra("userObj", userObj)*/
+                                startActivity(intent)
+                            }
+
+                            btnTopup.setOnClickListener(){
+                                val intent = Intent(this, User_walletTopup::class.java)
+                                intent.putExtra("wallet", walletObj.walletID)
+                                intent.putExtra("bal", walletObj.balance.toString())
+                                startActivity(intent)
+                                finish()
+                            }
+
+                            recyclerView = findViewById(R.id.rvTranHistory)
+                            recyclerView.layoutManager = LinearLayoutManager(this)
+                            recyclerView.setHasFixedSize(true)
+                            walletArrayList = arrayListOf()
+
+                            walletAdapter = TransactionAdapter(walletArrayList)
+
+                            recyclerView.adapter = walletAdapter
+
+                            setDataInList(walletObj.walletID.toString())
+
                         }
 
-                        btnTopup.setOnClickListener(){
-
-                        }
-
-                        recyclerView = findViewById(R.id.rvTranHistory)
-                        recyclerView.layoutManager = LinearLayoutManager(this)
-                        recyclerView.setHasFixedSize(true)
-                        walletArrayList = arrayListOf()
-
-                        walletAdapter = TransactionAdapter(walletArrayList)
-
-                        recyclerView.adapter = walletAdapter
-
-                        setDataInList(walletObj.walletID.toString())
 
                         /*walletAdapter.onItemClick = {
                             val intent = Intent(this, ::class.java)
@@ -138,6 +148,7 @@ class User_Wallet : AppCompatActivity() {
                             walletArrayList.removeAt(walletArrayList.size - 1)
                         }
                     }
+                    walletArrayList.sortByDescending { list -> list.transactionID }
                 }
                 walletAdapter.notifyDataSetChanged()
             }

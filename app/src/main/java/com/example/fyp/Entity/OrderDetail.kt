@@ -1,5 +1,8 @@
 package com.example.fyp.Entity
 
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+
 data class OrderDetail(
 
 
@@ -9,5 +12,4 @@ data class OrderDetail(
 
     var status:String?= null,
     var price:String?= null,
-
 )

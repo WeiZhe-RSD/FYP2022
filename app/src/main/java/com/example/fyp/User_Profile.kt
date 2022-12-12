@@ -38,12 +38,12 @@ class User_Profile : AppCompatActivity() {
 
 
             if(userObj.contactNo != null){
-                tvProfileContact.text = userObj.contactNo.toString()
+                tvProfileContact.text = "+60" + userObj.contactNo.toString()
             }else{
                 tvProfileContact.text = "*Plase Provide Your\n Contact No*"
             }
 
-            if(userObj.image != null){
+            if(userObj.image != ""){
                 var imgName = userObj.image
                 val storageRef = FirebaseStorage.getInstance().reference.child("userimg/$imgName")
                 val localfile = File.createTempFile("tempImage", "png")
@@ -53,6 +53,9 @@ class User_Profile : AppCompatActivity() {
                     val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                     imgProfile.setImageBitmap(bitmap)
                 }
+            }else{
+                imgProfile.setImageDrawable(getResources().getDrawable(R.drawable.prof));
+
             }
 
 

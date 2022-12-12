@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fyp.Entity.Cafeteria
+import com.example.fyp.Entity.CartDetail
 import com.example.fyp.Entity.User
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -58,7 +59,9 @@ class   Register : AppCompatActivity() {
         val rgGender = findViewById<RadioGroup>(R.id.rgGender)
         val rbFemale = findViewById<RadioButton>(R.id.rbFemale)
         val rdMale = findViewById<RadioButton>(R.id.rdMale)
+        val registerContact = findViewById<TextView>(R.id.registerContact)
 
+        var contact:String = registerContact.text.toString()
         var email: String = tfRegisterEmail.text.toString().lowercase()
         var name:String = tfRegisterName.text.toString()
         var password: String = tfRegisterPassword.text.toString()
@@ -67,6 +70,7 @@ class   Register : AppCompatActivity() {
         var temp:Int = 0
 
         var strinID:String = ""
+        var check:Boolean = true
 
 
 
@@ -89,6 +93,9 @@ class   Register : AppCompatActivity() {
         else if (TextUtils.isEmpty(email)) {
             Toast.makeText(applicationContext, "Please enter email!", Toast.LENGTH_LONG).show()
             return;
+        }else if (TextUtils.isEmpty(contact)) {
+            Toast.makeText(applicationContext, "Please enter Contact No!", Toast.LENGTH_LONG).show()
+            return;
         }else if (TextUtils.isEmpty(password)) {
             Toast.makeText(applicationContext, "Please enter password!", Toast.LENGTH_LONG).show()
             return;
@@ -96,33 +103,27 @@ class   Register : AppCompatActivity() {
             Toast.makeText(applicationContext, "Please enter Repeat Password!", Toast.LENGTH_LONG)
                 .show()
             return;
+        }else if (contact.length < 9 || contact.length>10) {
+            Toast.makeText(applicationContext, "Incorrect Contact No Format!", Toast.LENGTH_LONG).show()
+            return;
         }else if(password != RepeatPassword){
             Toast.makeText(applicationContext,"Password and Confirm Password do not match",Toast.LENGTH_LONG).show()
             return;
         }else {
             db = FirebaseFirestore.getInstance()
-            db.collection("user").addSnapshotListener(object : EventListener<QuerySnapshot> {
+            db.collection("user")
+                .get()
+                .addOnSuccessListener { documentss ->
 
-                override fun onEvent(
-                    value: QuerySnapshot?,
-                    error: FirebaseFirestoreException?
-                ){
-                    if(error != null){
-                        Log.e("Firestore Error", error.message.toString())
-                        return
+                    for (documentsss in documentss) {
+                        userArrayList.add(documentsss.toObject(User::class.java))
 
-                    }
-
-
-                    for(dc : DocumentChange in value?.documentChanges!!){
-
-                        if(dc.type == DocumentChange.Type.ADDED){
-                            userArrayList.add((dc.document.toObject(User::class.java)))
-
+                        if(email == userArrayList.get(userArrayList.size-1).email){
+                            check = false
                         }
                     }
-                }
-            })
+
+                    if(check == true){
 
             count = userArrayList.size
             temp = count + 1
@@ -150,7 +151,11 @@ class   Register : AppCompatActivity() {
                             "name" to name,
                             "gender" to result,
                             "email" to email,
-                            "role" to role
+                            "role" to role,
+                            "status" to "Active",
+                            "contactNo" to contact,
+                            "image" to "",
+
                         )
 
 
@@ -168,6 +173,89 @@ class   Register : AppCompatActivity() {
                             .addOnFailureListener { e ->
                                 Log.w("Firebase", "Error adding document", e)
                             }
+
+
+                        var cartCount:Int = 0
+                        var caID:String = ""
+                        val collection1 = db.collection("cart")
+                        val countQuery1 = collection1.count()
+                        countQuery1.get(AggregateSource.SERVER).addOnCompleteListener { tasks ->
+                            if (tasks.isSuccessful) {
+                                val snapshot1 = tasks.result
+                                cartCount = snapshot1.count.toInt()
+                                cartCount += 1
+
+                                if(cartCount < 10){
+                                    caID = "K000$cartCount"
+                                } else if(cartCount < 100){
+                                    caID = "K00$cartCount"
+                                }else if(cartCount < 1000){
+                                    caID = "K0$cartCount"
+                                }else if(cartCount < 10000){
+                                    caID = "K$cartCount"
+                                }
+
+                                val cart = hashMapOf(
+                                    "cartID" to caID,
+                                    "customerID" to strinID,
+                                )
+
+
+
+
+                                db.collection("cart")
+                                    .document(caID)
+                                    .set(cart)
+                                    .addOnSuccessListener {
+                                    }
+
+                            }
+                        }
+
+
+                        var walletCount:Int = 0
+                        var wallID:String = ""
+                        val collection2 = db.collection("ewallet")
+                        val countQuery2 = collection2.count()
+                        countQuery2.get(AggregateSource.SERVER).addOnCompleteListener { taskss ->
+                            if (taskss.isSuccessful) {
+                                val snapshot2 = taskss.result
+                                walletCount = snapshot2.count.toInt()
+                                walletCount += 1
+
+                                if(walletCount < 10){
+                                    wallID = "W000$walletCount"
+                                } else if(walletCount < 100){
+                                    wallID = "W00$walletCount"
+                                }else if(walletCount < 1000){
+                                    wallID = "W0$walletCount"
+                                }else if(walletCount < 10000){
+                                    wallID = "W$walletCount"
+                                }
+
+                                val wallet = hashMapOf(
+                                    "balance" to "0",
+                                    "pinNo" to null,
+                                    "status" to "Inactive",
+                                    "userID" to strinID,
+                                    "walletID" to wallID,
+
+                                )
+
+
+
+
+                                db.collection("ewallet")
+                                    .document(wallID)
+                                    .set(wallet)
+                                    .addOnSuccessListener {
+                                    }
+
+                            }
+                        }
+
+
+
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
                         finish()
@@ -187,6 +275,11 @@ class   Register : AppCompatActivity() {
                         Toast.makeText(this, "Singed Up Failed!", Toast.LENGTH_SHORT).show()
                     }
                 }
+                }else{
+                        Toast.makeText(applicationContext,"This Email is taken",Toast.LENGTH_LONG).show()
+                    }
+
+            }
         }
 
     }

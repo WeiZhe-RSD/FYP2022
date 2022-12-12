@@ -46,6 +46,7 @@ class User_EditCart : AppCompatActivity() {
                     val btnUpdateCart = findViewById<Button>(R.id.btnUpdateCart)
                     val btnRemoveCart = findViewById<Button>(R.id.btnRemoveCart)
                     val tfRemark = findViewById<TextView>(R.id.tfRemark)
+                    val tvEditCartPriceee = findViewById<TextView>(R.id.tvEditCartPriceee)
 
                     tvFoodNameChoose.text = foodObj.name
                     tvFoodStallsNames.text = foodObj.foodstallID
@@ -62,6 +63,7 @@ class User_EditCart : AppCompatActivity() {
                     quantity = cart.quantity.toString().toInt()
                     tvQuantity.text = quantity.toString()
 
+                    tvEditCartPriceee.text = "RM ${foodObj.price}"
                     /*radioGroup.check(R.id.rbNoSpicy)*/
                     btnDecrease.setOnClickListener() {
                         if (quantity != 1) {

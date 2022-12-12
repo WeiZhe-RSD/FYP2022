@@ -10,12 +10,15 @@ data class CartDetail(
     var detailID:String?=null,
     var Remark:String?=null,
     var status:String?=null,
+    var orderID:String?=null,
 
     var subtotal:String?=null,
     var quantity:String?= null,
 
+
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -34,6 +37,7 @@ data class CartDetail(
         parcel.writeString(detailID)
         parcel.writeString(Remark)
         parcel.writeString(status)
+        parcel.writeString(orderID)
         parcel.writeString(subtotal)
         parcel.writeString(quantity)
     }

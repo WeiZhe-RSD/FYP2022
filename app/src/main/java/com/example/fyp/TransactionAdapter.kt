@@ -35,16 +35,16 @@ class TransactionAdapter (private val cafeteriaList: ArrayList<EwalletTransactio
 
         if(cafeteria.type == "Payment"){
             holder.tvTranName.text = "Transfer to " + cafeteria.to.toString()
-        }else if(cafeteria.type == "Receive"){
-            holder.tvTranName.text = "Receive from " + cafeteria.to.toString()
+        }else if(cafeteria.type == "Reload"){
+            holder.tvTranName.text = "Reload"
         }
 
         holder.tvTranType.text = cafeteria.type
         if(cafeteria.type == "Payment"){
-            holder.tvTranAmount.text = "+RM" +cafeteria.amount.toString()
+            holder.tvTranAmount.text = "-RM" +cafeteria.amount.toString()
 
         }else{
-            holder.tvTranAmount.text = "-RM" +cafeteria.amount.toString()
+            holder.tvTranAmount.text = "+RM" +cafeteria.amount.toString()
         }
         holder.tvTranDate.text = cafeteria.date
 
