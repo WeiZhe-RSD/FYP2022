@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fyp.Entity.Ewallet
 import com.example.fyp.Entity.Food
 import com.example.fyp.Entity.OrderContentDetail
 import com.example.fyp.Entity.OrderDetail
@@ -61,12 +62,27 @@ class Seller_ManageSpecificOrder : AppCompatActivity() {
         orderId.text = orderIDFPI
         setDataInList()
 
+        var detailObj:OrderDetail
         val db = FirebaseFirestore.getInstance()
+        val tvOrderDeStatus = findViewById<TextView>(R.id.tvOrderDeStatus)
+        db.collection("orderDetail")
+            .whereEqualTo("orderDetailID", orderDetailIDFPI)
+            .get()
+            .addOnSuccessListener { documentssx ->
+
+                for (documentsssx in documentssx) {
+                    detailObj = documentsssx.toObject(OrderDetail::class.java)
+                    tvOrderDeStatus.text = detailObj.status.toString()
+                }
+
+            }
 
 
-        db.collection("order").document(orderIDFPI.toString())
+                db.collection("order").document(orderIDFPI.toString())
             .get().addOnSuccessListener {
                 val statusFTDB = it.getString("status").toString()
+
+
 
                 if (statusFTDB == "Order Completed") {
                     btnOrderComplete.isEnabled = false
@@ -74,7 +90,36 @@ class Seller_ManageSpecificOrder : AppCompatActivity() {
                     btnOrderComplete.visibility = View.VISIBLE
                 } else {
                     btnOrderComplete.setOnClickListener {
-                        val order = hashMapOf(
+
+                        if(tvOrderDeStatus.text == "Pending"){
+                            val washingtonRef = db.collection("orderDetail").document(orderDetailIDFPI.toString())
+                            washingtonRef
+                                .update("status", "Preparing")
+
+                            tvOrderDeStatus.text = "Preparing"
+                        }else if(tvOrderDeStatus.text == "Preparing"){
+                            val washingtonRef = db.collection("orderDetail").document(orderDetailIDFPI.toString())
+                            washingtonRef
+                                .update("status", "Done")
+
+                            val washingtonRef2 = db.collection("order").document(orderIDFPI.toString())
+                            washingtonRef2
+                                .update("status", "Order Completed")
+
+                            tvOrderDeStatus.text = "Done"
+                            Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT)
+
+
+                            btnOrderComplete.isEnabled = false
+                            btnOrderComplete.setBackgroundColor(Color.GRAY)
+                            btnOrderComplete.visibility = View.VISIBLE
+
+                        }
+
+
+
+
+                        /*val order = hashMapOf(
                             "date" to dateFPI,
                             "foodstallID" to foodStallIDFPI,
                             "orderDetailID" to orderDetailIDFPI,
@@ -105,7 +150,7 @@ class Seller_ManageSpecificOrder : AppCompatActivity() {
                             }
                             .addOnFailureListener {
                                 Toast.makeText(this, "Updated Failed", Toast.LENGTH_SHORT).show()
-                            }
+                            }*/
 
                     }
                 }

@@ -3,6 +3,7 @@ package com.example.fyp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fyp.Entity.EatTogehter
@@ -28,6 +29,7 @@ class Seller_ManagePendingPay : AppCompatActivity() {
         setContentView(R.layout.activity_seller_manage_pending_pay)
 
 stallname = intent.getStringExtra("stallname")!!
+        val btnViewOrdersss = findViewById<Button>(R.id.btnViewOrdersss)
 
 
         recyclerView = findViewById(R.id.rvPendingPay)
@@ -40,6 +42,9 @@ stallname = intent.getStringExtra("stallname")!!
         recyclerView.adapter = cafeteriaAdapter
 
         setDataInList()
+        btnViewOrdersss.setOnClickListener(){
+            finish()
+        }
 
         cafeteriaAdapter.onItemClick = {
             val intent = Intent(this, User_InvitationDetail::class.java)
@@ -50,18 +55,8 @@ stallname = intent.getStringExtra("stallname")!!
 
     private fun setDataInList(){
 
-        var ord:Order
         db = FirebaseFirestore.getInstance()
-        db.collection("order")
-            .whereEqualTo("foodstallID", stallname)
-            .get()
-            .addOnSuccessListener { documentss ->
-
-                for (documentsss in documentss) {
-                    ord = documentsss.toObject(Order::class.java)
-
                     db.collection("payment")
-                        .whereEqualTo("orderID", ord.orderID)
                         .whereEqualTo("type", "Cash")
                         .whereEqualTo("status", "Pending")
                         .get()
@@ -70,18 +65,18 @@ stallname = intent.getStringExtra("stallname")!!
                             for (documentsssx in documentssx) {
                                 cafeteriaArrayList.add(documentsssx.toObject(Payment::class.java))
                             }
+                            cafeteriaArrayList.sortByDescending { "date" }
 
+
+                            cafeteriaAdapter.notifyDataSetChanged()
                         }
 
-                }
-
-                cafeteriaArrayList.sortByDescending { "date" }
 
 
-                cafeteriaAdapter.notifyDataSetChanged()
 
 
-            }
+
+
 
 
     }
