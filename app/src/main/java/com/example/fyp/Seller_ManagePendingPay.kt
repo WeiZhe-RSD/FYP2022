@@ -47,7 +47,7 @@ stallname = intent.getStringExtra("stallname")!!
         }
 
         cafeteriaAdapter.onItemClick = {
-            val intent = Intent(this, User_InvitationDetail::class.java)
+            val intent = Intent(this, Seller_PaymentDetail::class.java)
             intent.putExtra("payment", it)
             startActivity(intent)
         }
