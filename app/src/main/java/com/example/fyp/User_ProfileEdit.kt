@@ -152,8 +152,8 @@ class User_ProfileEdit : AppCompatActivity() {
                 }else if (tvEditContact.text.length < 9 || tvEditContact.text.length>10) {
                     Toast.makeText(applicationContext, "Contact No length should be 9 or 10", Toast.LENGTH_LONG).show()
 
-                }else if (TextUtils.isEmpty(btnDatePicker.text)) {
-                    Toast.makeText(applicationContext, "Please enter name!", Toast.LENGTH_LONG).show()
+                }else if (btnDatePicker.text == "Button") {
+                    Toast.makeText(applicationContext, "Please Select Date!", Toast.LENGTH_LONG).show()
                 }else  {
                     var string22: String = btnDatePicker.text.toString()
                     var yourArray: List<String> = string22.split("-")
